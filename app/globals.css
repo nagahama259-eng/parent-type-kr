@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* 팔레트: 따뜻한 뉴트럴 + 머스터드 액센트 */
+  --bg: #F7F3EB;
+  --bg-elevated: #FBF9F4;
+  --ink: #2A2620;
+  --ink-soft: #5C554B;
+  --line: #E4DDD0;
+  --accent: #C89934;         /* 머스터드 (시그니처) */
+  --accent-soft: #EFDFAF;
+
+  /* 유형 색 (사분면) */
+  --type-nurturer: #E8927C;  /* 감성+개입 코랄 */
+  --type-planner:  #5B7A94;  /* 이성+개입 블루 */
+  --type-freeflow: #8FA678;  /* 감성+자율 세이지 */
+  --type-observer: #9E8AA0;  /* 이성+자율 모브 */
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
+  font-feature-settings: 'ss01', 'ss02';
+}
+
+.serif {
+  font-family: 'Noto Serif KR', 'Nanum Myeongjo', serif;
+}
+
+/* 강조 스크롤 애니메이션은 절제 */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
