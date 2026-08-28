@@ -17,9 +17,13 @@ export default function TopShareCTA({ typeName, hookText, color }: Props) {
     const text = `${hookText}\n\n부모 성향 테스트 결과 확인하기 ↓`;
 
     // Web Share API 지원 시 (모바일 대부분 + 최신 데스크탑) 네이티브 공유 시트
-    if (typeof navigator !== "undefined" && "share" in navigator) {
+    const nav = navigator as Navigator & {
+      share?: (data: ShareData) => Promise<void>;
+    };
+
+    if (typeof nav.share === "function") {
       try {
-        await navigator.share({ title, text, url });
+        await nav.share({ title, text, url });
       } catch {
         // 사용자 취소 시 아무것도 안 함
       }
