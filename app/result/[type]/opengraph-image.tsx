@@ -92,7 +92,6 @@ export default async function OGImage({
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
             alignItems: "center",
           }}
         >
@@ -105,15 +104,6 @@ export default async function OGImage({
             }}
           >
             PARENTING TYPE TEST
-          </span>
-          <span
-            style={{
-              fontSize: 24,
-              color: "#5C554B",
-              fontWeight: 400,
-            }}
-          >
-            by 259
           </span>
         </div>
 
