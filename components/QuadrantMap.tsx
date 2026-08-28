@@ -48,18 +48,20 @@ export default function QuadrantMap({
         <div className="absolute inset-y-0 left-1/2 w-px bg-[var(--line)]" />
 
         {/* 4개 유형 마커 (내 유형 제외한 나머지는 흐리게) */}
-        {types.map((t) => {
+        {types.map((t, i) => {
           const top = t.coord.b === 1 ? "25%" : "75%";
           const left = t.coord.a === 1 ? "25%" : "75%";
           const isMe = t.key === currentType;
+          if (isMe) return null; // 내 유형은 YOU 마커가 대신
           return (
             <div
               key={t.key}
-              className="absolute -translate-x-1/2 -translate-y-1/2 text-center transition-opacity"
+              className="absolute -translate-x-1/2 -translate-y-1/2 text-center"
               style={{
                 top,
                 left,
-                opacity: isMe ? 0 : 0.35, // 내 유형 자리는 마이 마커가 대신 표시
+                opacity: 0,
+                animation: `typeDotFadeIn 0.5s ease-out ${0.3 + i * 0.15}s both`,
               }}
             >
               <div
@@ -75,8 +77,13 @@ export default function QuadrantMap({
 
         {/* 나의 위치 마커 (백분율 기반 정확한 좌표) */}
         <div
-          className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{ top: myTop, left: myLeft }}
+          className="absolute"
+          style={{
+            top: myTop,
+            left: myLeft,
+            transform: "translate(-50%, -50%)",
+            animation: "youMarkerPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.0s both",
+          }}
         >
           {/* 펄스 링 */}
           <div
@@ -89,6 +96,7 @@ export default function QuadrantMap({
               transform: "translate(-50%, -50%)",
               left: "50%",
               top: "50%",
+              animationDelay: "1.7s",
             }}
           />
           {/* 실제 점 */}
@@ -97,8 +105,12 @@ export default function QuadrantMap({
             style={{ backgroundColor: current.color }}
           />
           <span
-            className="absolute top-full mt-2 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap"
-            style={{ color: current.color }}
+            className="absolute top-full mt-2 left-1/2 text-xs font-medium whitespace-nowrap"
+            style={{
+              color: current.color,
+              opacity: 0,
+              animation: "youLabelSlideIn 0.4s ease-out 1.7s both",
+            }}
           >
             YOU
           </span>

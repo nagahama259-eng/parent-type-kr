@@ -18,8 +18,9 @@ export default function LandingPage() {
         </h1>
 
         <p className="text-base md:text-lg text-[var(--ink-soft)] leading-relaxed mb-6 max-w-lg">
-          감성과 이성, 개입과 자율 두 축 위에 나의 육아 스타일을 찍어봅니다.
-          결과 페이지에서 우리 아이의 성장 방향과 오늘 바로 해볼 만한 케어 팁을 받아보세요.
+          20문항으로 진단하는 육아 스타일 4유형.
+          <br className="hidden md:inline" />
+          결과에서 우리 아이의 성장 방향과 오늘 바로 해볼 수 있는 맞춤 케어까지 받아보세요.
         </p>
         <p className="text-xs text-[var(--ink-soft)] mb-12 tracking-wider">
           · {THEORETICAL_BASIS}

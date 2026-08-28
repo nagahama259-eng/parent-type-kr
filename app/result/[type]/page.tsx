@@ -4,6 +4,7 @@ import { TYPES, TypeKey, TYPE_KEYS, THEORETICAL_BASIS, REFERENCES, DISCLAIMER, C
 import { isValidTypeKey } from "@/lib/scoring";
 import QuadrantMap from "@/components/QuadrantMap";
 import ShareButtons from "@/components/ShareButtons";
+import TopShareCTA from "@/components/TopShareCTA";
 
 // SEO를 위한 정적 생성
 export function generateStaticParams() {
@@ -74,12 +75,24 @@ export default async function ResultPage({
         </p>
 
         {/* 사분면 지도 */}
-        <div className="mb-20">
+        <div className="mb-12 md:mb-16">
           <QuadrantMap
             currentType={type}
             percentA_gamseong={percentA_gamseong}
             percentB_gaeip={percentB_gaeip}
           />
+        </div>
+
+        {/* 상단 공유 CTA - 결과 확인 직후 공유 유도 */}
+        <div className="mb-16 md:mb-20">
+          <TopShareCTA
+            typeName={t.name_kr}
+            hookText={t.share_hook}
+            color={t.color}
+          />
+          <p className="text-xs text-[var(--ink-soft)] text-center mt-3">
+            친구가 어떤 유형인지 궁금하지 않으세요?
+          </p>
         </div>
 
         {/* 요약 */}
@@ -245,39 +258,40 @@ export default async function ResultPage({
         </section>
 
         {/* 재시작 & 다른 유형 */}
-        <section className="flex flex-col gap-4">
-          <Link
-            href="/test"
-            className="inline-block text-center bg-[var(--ink)] text-[var(--bg-elevated)] px-8 py-4 hover:bg-[var(--accent)] transition-colors"
-          >
-            다시 테스트하기
-          </Link>
-          <details className="text-sm text-[var(--ink-soft)]">
-            <summary className="cursor-pointer hover:text-[var(--ink)]">
-              다른 유형이 궁금해요
-            </summary>
-            <div className="mt-4 grid grid-cols-2 gap-3">
+        <section className="flex flex-col gap-8">
+          <div>
+            <SectionLabel>다른 유형도 살펴보기</SectionLabel>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {TYPE_KEYS.filter((k) => k !== type).map((k) => {
                 const other = TYPES[k];
                 return (
                   <Link
                     key={k}
                     href={`/result/${k}`}
-                    className="p-4 border border-[var(--line)] hover:border-[var(--ink)] transition-colors"
+                    className="p-5 border border-[var(--line)] bg-[var(--bg-elevated)] hover:border-[var(--ink)] transition-colors flex flex-col"
                   >
                     <div
-                      className="w-2 h-2 rounded-full mb-2"
+                      className="w-3 h-3 rounded-full mb-3"
                       style={{ backgroundColor: other.color }}
                     />
-                    <p className="text-[var(--ink)] font-medium">
+                    <p className="text-[var(--ink)] font-medium mb-2">
                       {other.name_kr}
                     </p>
-                    <p className="text-xs mt-1">{other.tagline}</p>
+                    <p className="text-xs text-[var(--ink-soft)] leading-relaxed">
+                      {other.tagline}
+                    </p>
                   </Link>
                 );
               })}
             </div>
-          </details>
+          </div>
+
+          <Link
+            href="/"
+            className="inline-block text-center bg-[var(--ink)] text-[var(--bg-elevated)] px-8 py-4 hover:bg-[var(--accent)] transition-colors"
+          >
+            다시 테스트하기
+          </Link>
         </section>
 
         {/* 신중한 톤 문구 + 참고문헌 */}
