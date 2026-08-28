@@ -4,18 +4,18 @@ import { useState } from "react";
 
 interface Props {
   hookText: string; // 공유 훅 카피
-  typeName: string;
 }
 
-export default function ShareButtons({ hookText, typeName }: Props) {
+export default function ShareButtons({ hookText }: Props) {
   const [copied, setCopied] = useState(false);
 
-  const url = typeof window !== "undefined" ? window.location.href : "";
-  const shareText = `${hookText}\n\n${url}`;
+  // 결과 URL이 아니라 랜딩 페이지 URL을 공유 (친구가 자기 테스트 시작하도록)
+  const url = typeof window !== "undefined" ? window.location.origin + "/" : "";
+  const shareText = `${hookText}\n\n나는 어떤 부모일까? 지금 테스트해보기 ↓`;
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(shareText);
+      await navigator.clipboard.writeText(`${shareText}\n${url}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -49,7 +49,7 @@ export default function ShareButtons({ hookText, typeName }: Props) {
         </a>
       </div>
       <p className="text-xs text-[var(--ink-soft)] mt-2">
-        {typeName} 결과 카드가 공유돼요
+        친구가 자기 유형을 확인할 수 있는 테스트 링크가 공유돼요
       </p>
     </div>
   );

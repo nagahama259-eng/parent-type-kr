@@ -254,7 +254,7 @@ export default async function ResultPage({
 
         {/* 공유 */}
         <section className="mb-16 pt-16 border-t border-[var(--line)]">
-          <ShareButtons hookText={t.share_hook} typeName={t.name_kr} />
+          <ShareButtons hookText={t.share_hook} />
         </section>
 
         {/* 재시작 & 다른 유형 */}

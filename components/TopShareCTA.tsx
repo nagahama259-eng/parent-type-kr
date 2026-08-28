@@ -12,9 +12,11 @@ export default function TopShareCTA({ typeName, hookText, color }: Props) {
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
-    const url = window.location.href;
+    // 결과 URL이 아니라 랜딩 페이지 URL을 공유
+    // → 친구가 소개글부터 보고 자기 테스트 진행하도록 유도
+    const url = window.location.origin + "/";
     const title = `저는 ${typeName}이래요`;
-    const text = `${hookText}\n\n부모 성향 테스트 결과 확인하기 ↓`;
+    const text = `${hookText}\n\n나는 어떤 부모일까? 지금 테스트해보기 ↓`;
 
     // Web Share API 지원 시 (모바일 대부분 + 최신 데스크탑) 네이티브 공유 시트
     const nav = navigator as Navigator & {
