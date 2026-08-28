@@ -29,17 +29,17 @@ export default function QuadrantMap({
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="relative aspect-square bg-[var(--bg-elevated)] border border-[var(--line)]">
-        {/* 축 라벨 */}
-        <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs text-[var(--ink-soft)] tracking-wider">
+        {/* 축 라벨 - 박스 안쪽 배치 (모바일 오버플로우 방지) */}
+        <span className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] text-[var(--ink-soft)] tracking-wider bg-[var(--bg-elevated)] px-1.5 z-10">
           개입
         </span>
-        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-[var(--ink-soft)] tracking-wider">
+        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-[var(--ink-soft)] tracking-wider bg-[var(--bg-elevated)] px-1.5 z-10">
           자율
         </span>
-        <span className="absolute top-1/2 -left-10 -translate-y-1/2 text-xs text-[var(--ink-soft)] tracking-wider">
+        <span className="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] text-[var(--ink-soft)] tracking-wider bg-[var(--bg-elevated)] px-1.5 z-10">
           감성
         </span>
-        <span className="absolute top-1/2 -right-10 -translate-y-1/2 text-xs text-[var(--ink-soft)] tracking-wider">
+        <span className="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] text-[var(--ink-soft)] tracking-wider bg-[var(--bg-elevated)] px-1.5 z-10">
           이성
         </span>
 

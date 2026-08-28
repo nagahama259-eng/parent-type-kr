@@ -3,7 +3,7 @@ import { TYPES, THEORETICAL_BASIS } from "@/lib/data";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-16">
+    <main className="min-h-screen flex flex-col items-center justify-center px-5 md:px-6 py-12 md:py-16">
       <div className="max-w-2xl w-full">
         {/* 헤더 아이브로우 */}
         <p className="text-xs tracking-[0.3em] uppercase text-[var(--ink-soft)] mb-8">
@@ -11,13 +11,13 @@ export default function LandingPage() {
         </p>
 
         {/* 히어로 */}
-        <h1 className="serif text-5xl md:text-6xl leading-[1.15] tracking-tight mb-8">
+        <h1 className="serif text-4xl md:text-6xl leading-[1.15] tracking-tight mb-8">
           당신은 어떤
           <br />
           <span className="text-[var(--accent)]">부모</span>인가요?
         </h1>
 
-        <p className="text-lg text-[var(--ink-soft)] leading-relaxed mb-6 max-w-lg">
+        <p className="text-base md:text-lg text-[var(--ink-soft)] leading-relaxed mb-6 max-w-lg">
           감성과 이성, 개입과 자율 두 축 위에 나의 육아 스타일을 찍어봅니다.
           결과 페이지에서 우리 아이의 성장 방향과 오늘 바로 해볼 만한 케어 팁을 받아보세요.
         </p>
@@ -51,17 +51,17 @@ function MiniQuadrant() {
   const types = Object.values(TYPES);
   return (
     <div className="relative aspect-square border border-[var(--line)] bg-[var(--bg-elevated)]">
-      {/* 축 라벨 */}
-      <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs text-[var(--ink-soft)]">
+      {/* 축 라벨 - 박스 안쪽 배치 */}
+      <span className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] text-[var(--ink-soft)] bg-[var(--bg-elevated)] px-1.5 z-10">
         개입
       </span>
-      <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-[var(--ink-soft)]">
+      <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-[var(--ink-soft)] bg-[var(--bg-elevated)] px-1.5 z-10">
         자율
       </span>
-      <span className="absolute top-1/2 -left-8 -translate-y-1/2 text-xs text-[var(--ink-soft)] rotate-[-90deg] origin-center">
+      <span className="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] text-[var(--ink-soft)] bg-[var(--bg-elevated)] px-1.5 z-10">
         감성
       </span>
-      <span className="absolute top-1/2 -right-8 -translate-y-1/2 text-xs text-[var(--ink-soft)] rotate-90 origin-center">
+      <span className="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] text-[var(--ink-soft)] bg-[var(--bg-elevated)] px-1.5 z-10">
         이성
       </span>
 

@@ -47,19 +47,19 @@ export default async function ResultPage({
   const percentB_gaeip = b ? Number(b) : t.coord.b === 1 ? 75 : 25;
 
   return (
-    <main className="min-h-screen px-6 py-16">
+    <main className="min-h-screen px-5 md:px-6 py-10 md:py-16">
       <div className="max-w-3xl mx-auto">
         {/* 결과 헤더 */}
         <p className="text-xs tracking-[0.3em] uppercase text-[var(--ink-soft)] mb-6">
           Your Result
         </p>
         <h1
-          className="serif text-5xl md:text-6xl leading-[1.1] tracking-tight mb-4"
+          className="serif text-4xl md:text-6xl leading-[1.1] tracking-tight mb-4"
           style={{ color: t.color }}
         >
           {t.name_kr}
         </h1>
-        <p className="text-xl text-[var(--ink)] mb-4 max-w-2xl leading-relaxed">
+        <p className="text-lg md:text-xl text-[var(--ink)] mb-4 max-w-2xl leading-relaxed">
           {t.tagline}
         </p>
         <p className="text-xs text-[var(--ink-soft)] mb-16 tracking-wider">
@@ -76,9 +76,9 @@ export default async function ResultPage({
         </div>
 
         {/* 요약 */}
-        <section className="mb-16">
+        <section className="mb-12 md:mb-16">
           <SectionLabel>육아 스타일</SectionLabel>
-          <p className="text-lg leading-relaxed text-[var(--ink)]">
+          <p className="text-base md:text-lg leading-relaxed text-[var(--ink)]">
             {t.summary}
           </p>
         </section>
@@ -90,12 +90,12 @@ export default async function ResultPage({
             {t.strengths.map((s, i) => (
               <li key={i} className="flex gap-4 items-start">
                 <span
-                  className="serif text-2xl leading-none mt-1"
+                  className="serif text-xl md:text-2xl leading-none mt-1 flex-shrink-0"
                   style={{ color: t.color }}
                 >
                   0{i + 1}
                 </span>
-                <span className="text-[var(--ink)] text-lg leading-relaxed">
+                <span className="text-base md:text-lg text-[var(--ink)] leading-relaxed">
                   {s}
                 </span>
               </li>
@@ -116,9 +116,9 @@ export default async function ResultPage({
         </section>
 
         {/* 아이 성장 */}
-        <section className="mb-16 bg-[var(--bg-elevated)] p-8 border-l-4" style={{ borderColor: t.color }}>
+        <section className="mb-12 md:mb-16 bg-[var(--bg-elevated)] p-6 md:p-8 border-l-4" style={{ borderColor: t.color }}>
           <SectionLabel>우리 아이는 이렇게 자라요</SectionLabel>
-          <p className="text-lg leading-relaxed text-[var(--ink)] mb-6">
+          <p className="text-base md:text-lg leading-relaxed text-[var(--ink)] mb-6">
             {t.child_growth}
           </p>
           <div className="mt-6 pt-6 border-t border-[var(--line)]">
@@ -136,14 +136,14 @@ export default async function ResultPage({
           <SectionLabel>오늘 해볼 만한 케어</SectionLabel>
           <ol className="space-y-6">
             {t.care_tips.map((tip, i) => (
-              <li key={i} className="flex gap-6 items-start">
+              <li key={i} className="flex gap-4 md:gap-6 items-start">
                 <span
-                  className="serif text-4xl leading-none opacity-40"
+                  className="serif text-3xl md:text-4xl leading-none opacity-40 flex-shrink-0"
                   style={{ color: t.color }}
                 >
                   {i + 1}
                 </span>
-                <span className="text-[var(--ink)] text-lg leading-relaxed">
+                <span className="text-base md:text-lg text-[var(--ink)] leading-relaxed">
                   {tip}
                 </span>
               </li>
@@ -151,28 +151,56 @@ export default async function ResultPage({
           </ol>
         </section>
 
-        {/* 쿠팡 파트너스 상품 자리 (다음 스텝에서 채움) */}
+        {/* 쿠팡 파트너스 상품 - 카테고리별 첫 후보 표시 */}
         <section className="mb-16">
           <SectionLabel>{t.name_kr}에게 어울리는 아이템</SectionLabel>
           <p className="text-sm text-[var(--ink-soft)] mb-8">
             우리 아이 성장 방향과 결이 맞는 아이템을 골라봤어요
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {t.item_categories.map((cat, i) => (
-              <div
-                key={i}
-                className="border border-[var(--line)] p-6 bg-[var(--bg-elevated)]"
-              >
-                <p className="text-xs text-[var(--ink-soft)] mb-2">
-                  카테고리 {String(i + 1).padStart(2, "0")}
-                </p>
-                <p className="text-[var(--ink)] font-medium">{cat}</p>
-                <p className="text-xs text-[var(--ink-soft)] mt-4">
-                  {/* TODO: 쿠팡 파트너스 링크 삽입 */}
-                  쿠팡 링크 자리
-                </p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {(() => {
+              // 카테고리별 첫 후보만 추출 (중복 제거)
+              const seen = new Set<string>();
+              const primary = t.product_candidates.filter((p) => {
+                if (seen.has(p.category)) return false;
+                seen.add(p.category);
+                return true;
+              });
+              return primary.map((p, i) => (
+                <div
+                  key={i}
+                  className="border border-[var(--line)] bg-[var(--bg-elevated)] p-6 flex flex-col"
+                >
+                  <p className="text-xs text-[var(--ink-soft)] tracking-wider mb-3">
+                    {p.category}
+                  </p>
+                  <p className="text-[var(--ink)] font-medium leading-snug mb-3">
+                    {p.product_name_example}
+                  </p>
+                  <p className="text-sm text-[var(--ink-soft)] leading-relaxed mb-4 flex-1">
+                    {p.reason}
+                  </p>
+                  <div className="flex items-center justify-between text-xs text-[var(--ink-soft)] mb-4">
+                    <span>{p.age_target}</span>
+                    <span>{p.price_range}</span>
+                  </div>
+                  {p.coupang_link ? (
+                    <a
+                      href={p.coupang_link}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      className="inline-block text-center py-3 border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-elevated)] transition-colors text-sm"
+                    >
+                      쿠팡에서 보기 →
+                    </a>
+                  ) : (
+                    <span className="inline-block text-center py-3 border border-[var(--line)] text-[var(--ink-soft)] text-sm">
+                      쿠팡 링크 준비 중
+                    </span>
+                  )}
+                </div>
+              ));
+            })()}
           </div>
           <p className="text-[10px] text-[var(--ink-soft)] mt-6">
             * 본 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.

@@ -27,10 +27,20 @@ export interface TypeContent {
   child_growth: string;
   research_basis: string; // 논문 근거 (child_growth 뒤에 표시)
   care_tips: string[];
-  item_categories: string[];
+  product_candidates: Product[]; // 18개 (6 카테고리 × 3 후보). 결과 페이지엔 카테고리별 첫 후보만 표시
   share_hook: string;
   coord: { a: 1 | -1; b: 1 | -1 };
   color: string;
+}
+
+export interface Product {
+  category: string; // 카테고리명 (같은 카테고리 3개가 후보로 그룹핑됨)
+  search_query: string; // 쿠팡 검색 키워드 (259님이 실제 상품 찾을 때 사용)
+  product_name_example: string; // 예시 상품명
+  reason: string; // 이 유형에 어울리는 이유
+  age_target: string; // 추천 연령
+  price_range: string; // 가격대
+  coupang_link?: string; // 쿠팡 파트너스 딥링크 (아직 없으면 "쿠팡 링크 준비 중" 표시)
 }
 
 export interface Reference {
@@ -326,13 +336,25 @@ export const TYPES: Record<TypeKey, TypeContent> = {
       "아이가 울거나 화낼 때 10초만 기다린 뒤 도움이 필요한지 물어봅니다.",
       "잠들기 전 오늘 가장 좋았던 감정과 힘들었던 감정을 하나씩 나눠봅니다.",
     ],
-    item_categories: [
-      "유아 감정 카드",
-      "애착 인형",
-      "감정 표현 그림책",
-      "역할놀이 인형 세트",
-      "수면 무드등",
-      "부모 자녀 대화 카드",
+    product_candidates: [
+      { category: "유아 감정 카드", search_query: "유아 표정 감정카드 한글", product_name_example: "다양한 얼굴 표정과 감정 단어가 담긴 유아용 감정 카드", reason: "아이의 미묘한 감정을 함께 찾아 이름 붙이며 정서 표현을 도와줍니다.", age_target: "3~7세", price_range: "1~2만원" },
+      { category: "유아 감정 카드", search_query: "유아 감정카드 상황 그림", product_name_example: "생활 상황별 감정을 이야기하는 그림 감정 카드", reason: "일상 속 사건과 마음을 연결해 아이와 자연스럽게 대화를 시작할 수 있습니다.", age_target: "4~7세", price_range: "1~2만원" },
+      { category: "유아 감정 카드", search_query: "감정카드 자석 유아", product_name_example: "오늘의 기분을 골라 붙이는 자석형 감정 표현 카드", reason: "말로 설명하기 어려운 마음도 아이가 직접 고르고 보여줄 수 있게 해줍니다.", age_target: "3~6세", price_range: "1~3만원" },
+      { category: "애착 인형", search_query: "유아 애착인형 부드러운 봉제", product_name_example: "세탁 가능한 부드러운 동물 봉제 애착 인형", reason: "부모와 떨어져 있거나 잠들기 전 아이에게 포근한 정서적 안정감을 줍니다.", age_target: "3~7세", price_range: "1~3만원" },
+      { category: "애착 인형", search_query: "유아 수면 애착인형 미니", product_name_example: "아이가 안고 자기 편한 소형 수면 애착 인형", reason: "잠자리에서 아이의 외로움과 긴장을 달래주는 다정한 친구가 되어줍니다.", age_target: "3~6세", price_range: "1~2만원" },
+      { category: "애착 인형", search_query: "역할놀이 애착인형 옷입히기", product_name_example: "옷을 갈아입히고 돌볼 수 있는 역할놀이 애착 인형", reason: "인형을 돌보는 놀이를 통해 애정과 공감 표현을 자연스럽게 연습할 수 있습니다.", age_target: "4~7세", price_range: "2~4만원" },
+      { category: "감정 표현 그림책", search_query: "유아 감정 그림책 세트", product_name_example: "기쁨·슬픔·화·두려움을 다룬 유아 감정 그림책 세트", reason: "아이의 다양한 마음을 이야기 속에서 편안하게 이해하고 표현하도록 돕습니다.", age_target: "3~7세", price_range: "2~5만원" },
+      { category: "감정 표현 그림책", search_query: "유아 화 조절 감정 그림책", product_name_example: "화가 날 때 몸과 마음을 진정시키는 감정 조절 그림책", reason: "아이의 화를 억누르기보다 인정하고 건강하게 다루는 방법을 함께 배울 수 있습니다.", age_target: "4~7세", price_range: "1만원대" },
+      { category: "감정 표현 그림책", search_query: "유아 마음 표현 플랩북", product_name_example: "장면을 열어보며 주인공의 마음을 맞히는 감정 플랩북", reason: "놀이하듯 표정과 상황을 살펴보며 아이의 공감 능력을 키워줍니다.", age_target: "3~6세", price_range: "1~2만원" },
+      { category: "역할놀이 인형 세트", search_query: "유아 가족 인형 역할놀이 세트", product_name_example: "부모와 형제 구성의 가족 역할놀이 인형 세트", reason: "가족 관계에서 느낀 감정을 인형의 말과 행동으로 안전하게 표현할 수 있습니다.", age_target: "3~7세", price_range: "2~4만원" },
+      { category: "역할놀이 인형 세트", search_query: "유아 병원놀이 인형 세트", product_name_example: "아픈 인형을 진찰하고 돌보는 병원 역할놀이 세트", reason: "돌봄 놀이를 통해 타인의 아픔을 헤아리고 위로하는 경험을 만들어줍니다.", age_target: "3~6세", price_range: "2~4만원" },
+      { category: "역할놀이 인형 세트", search_query: "유아 손인형 동물 세트", product_name_example: "감정 대화를 꾸밀 수 있는 동물 손인형 여러 개 세트", reason: "직접 말하기 어려운 마음을 인형의 목소리로 부담 없이 꺼내게 해줍니다.", age_target: "3~7세", price_range: "1~3만원" },
+      { category: "수면 무드등", search_query: "유아 수면 무드등 밝기조절", product_name_example: "밝기와 색온도를 조절할 수 있는 충전식 수면 무드등", reason: "잠들기 전 따뜻하고 안정적인 분위기를 만들어 부모와의 교감 시간을 돕습니다.", age_target: "3~7세", price_range: "1~3만원" },
+      { category: "수면 무드등", search_query: "유아 동물 무드등 타이머", product_name_example: "취침 타이머가 있는 말랑한 동물 모양 수면등", reason: "친근한 모양과 은은한 빛이 어두움을 무서워하는 아이를 편안하게 해줍니다.", age_target: "3~6세", price_range: "1~3만원" },
+      { category: "수면 무드등", search_query: "어린이 별빛 프로젝터 수면등", product_name_example: "천장에 별빛을 비추는 회전형 수면 프로젝터 무드등", reason: "별빛을 함께 바라보며 하루의 감정을 나누는 따뜻한 잠자리 의식을 만들 수 있습니다.", age_target: "4~7세", price_range: "2~4만원" },
+      { category: "부모 자녀 대화 카드", search_query: "부모 자녀 대화카드 유아", product_name_example: "하루의 기분과 경험을 묻는 부모 자녀 대화 카드", reason: "매일 짧은 질문 하나로 아이의 속마음을 자연스럽게 들여다볼 수 있습니다.", age_target: "4~7세", price_range: "1~2만원" },
+      { category: "부모 자녀 대화 카드", search_query: "가족 질문카드 어린이", product_name_example: "가족이 돌아가며 답하는 어린이용 질문 카드 게임", reason: "부모와 아이가 서로의 생각을 듣고 공감하는 즐거운 가족 시간을 만들어줍니다.", age_target: "5~7세", price_range: "1~2만원" },
+      { category: "부모 자녀 대화 카드", search_query: "유아 칭찬카드 사랑 표현", product_name_example: "사랑과 고마움을 전하는 가족 칭찬 대화 카드", reason: "평소 쑥스러웠던 애정과 칭찬을 구체적인 말로 전하도록 도와줍니다.", age_target: "4~7세", price_range: "1만원대" },
     ],
     share_hook: "저는 아이 마음의 통역사래요—우리 중 누가 같은 유형인지 태그해보세요!",
     coord: { a: 1, b: 1 },
@@ -362,13 +384,25 @@ export const TYPES: Record<TypeKey, TypeContent> = {
       "지시하기보다 '먼저 할 것과 나중에 할 것 중 무엇을 고를까?'라고 선택권을 줍니다.",
       "일주일에 한 번은 일정 없는 시간을 남겨 아이가 계획을 바꿔보게 합니다.",
     ],
-    item_categories: [
-      "유아 루틴 차트",
-      "어린이 타이머",
-      "자석 스케줄 보드",
-      "유아 정리함",
-      "생활 습관 스티커북",
-      "어린이 학습 달력",
+    product_candidates: [
+      { category: "유아 루틴 차트", search_query: "유아 아침 저녁 루틴 차트", product_name_example: "아침 준비와 잠자리 순서를 그림으로 보여주는 루틴 차트", reason: "반복되는 일과를 눈에 보이게 만들어 아이가 다음 행동을 예측하도록 돕습니다.", age_target: "3~6세", price_range: "1~2만원" },
+      { category: "유아 루틴 차트", search_query: "자석 생활습관 루틴판 유아", product_name_example: "완료 자석을 옮기는 유아 생활 습관 루틴판", reason: "해야 할 일을 하나씩 완료하는 재미로 자기주도적인 생활 습관을 만들어줍니다.", age_target: "4~7세", price_range: "2~3만원" },
+      { category: "유아 루틴 차트", search_query: "어린이 할일 체크판 보상 스티커", product_name_example: "주간 할 일과 보상 스티커를 함께 쓰는 어린이 체크판", reason: "목표와 성취를 구체적으로 확인하며 꾸준한 루틴 형성을 격려할 수 있습니다.", age_target: "5~7세", price_range: "1~2만원" },
+      { category: "어린이 타이머", search_query: "어린이 시각 타이머 무소음", product_name_example: "남은 시간이 색으로 표시되는 무소음 시각 타이머", reason: "추상적인 시간을 눈으로 보여줘 놀이 종료와 활동 전환을 수월하게 합니다.", age_target: "4~7세", price_range: "1~3만원" },
+      { category: "어린이 타이머", search_query: "유아 양치 타이머 모래시계", product_name_example: "양치 시간을 알려주는 어린이용 흡착식 모래시계", reason: "매일 같은 시간 동안 양치하는 습관을 놀이처럼 익히게 해줍니다.", age_target: "3~7세", price_range: "1만원 이하" },
+      { category: "어린이 타이머", search_query: "어린이 공부 타이머 알람", product_name_example: "큰 화면과 간단한 버튼을 갖춘 어린이 활동 타이머", reason: "놀이와 학습 시간을 스스로 구분하고 계획하는 기초를 만들어줍니다.", age_target: "5~7세", price_range: "1~2만원" },
+      { category: "자석 스케줄 보드", search_query: "어린이 자석 스케줄 보드", product_name_example: "요일별 활동 자석을 붙이는 어린이 주간 스케줄 보드", reason: "한 주의 일정을 아이와 함께 확인하며 예측 가능하고 안정적인 생활을 돕습니다.", age_target: "4~7세", price_range: "2~4만원" },
+      { category: "자석 스케줄 보드", search_query: "유아 그림 자석 일정표", product_name_example: "등원·식사·목욕·취침 그림 자석이 포함된 하루 일정표", reason: "글자를 몰라도 그림을 따라 하루 순서를 쉽게 이해할 수 있습니다.", age_target: "3~6세", price_range: "1~3만원" },
+      { category: "자석 스케줄 보드", search_query: "어린이 월간 자석 달력 보드", product_name_example: "날짜와 가족 일정을 표시하는 어린이용 월간 자석 달력", reason: "다가올 약속과 행사를 함께 준비하며 아이의 시간 감각을 길러줍니다.", age_target: "5~7세", price_range: "2~4만원" },
+      { category: "유아 정리함", search_query: "유아 장난감 정리함 분리 수납", product_name_example: "장난감을 종류별로 나누는 다단 바구니형 유아 정리함", reason: "물건마다 정해진 자리를 만들어 아이가 스스로 정리하기 쉽게 해줍니다.", age_target: "3~7세", price_range: "3~7만원" },
+      { category: "유아 정리함", search_query: "뚜껑 투명 장난감 수납함", product_name_example: "내용물을 바로 확인할 수 있는 투명 뚜껑 장난감 수납함", reason: "찾기와 분류가 쉬워져 놀이 준비부터 마무리까지 체계적으로 관리할 수 있습니다.", age_target: "3~7세", price_range: "1~3만원" },
+      { category: "유아 정리함", search_query: "어린이 책 장난감 수납장", product_name_example: "전면 책꽂이와 장난감 바구니가 결합된 낮은 수납장", reason: "아이가 직접 꺼내고 제자리에 돌려놓을 수 있어 정리 루틴을 강화합니다.", age_target: "3~7세", price_range: "5~10만원" },
+      { category: "생활 습관 스티커북", search_query: "유아 생활습관 스티커북", product_name_example: "양치·정리·인사·식사 습관을 익히는 놀이 스티커북", reason: "생활 규칙을 반복 설명하기보다 재미있는 활동으로 자연스럽게 익히게 합니다.", age_target: "3~6세", price_range: "1만원 이하" },
+      { category: "생활 습관 스티커북", search_query: "유아 배변 훈련 스티커 차트", product_name_example: "성공할 때마다 붙이는 유아 배변 습관 스티커 차트", reason: "작은 성공을 눈에 보이게 기록해 새로운 생활 습관을 긍정적으로 강화합니다.", age_target: "3~5세", price_range: "1만원 이하" },
+      { category: "생활 습관 스티커북", search_query: "어린이 칭찬 스티커판 생활습관", product_name_example: "주간 목표와 칭찬 스티커로 구성된 어린이 습관판", reason: "해야 할 행동과 달성 과정을 명확히 보여줘 꾸준한 실천을 돕습니다.", age_target: "4~7세", price_range: "1만원대" },
+      { category: "어린이 학습 달력", search_query: "어린이 날짜 날씨 학습 달력", product_name_example: "날짜·요일·계절·날씨를 매일 표시하는 어린이 학습 달력", reason: "매일 달력을 확인하는 짧은 루틴으로 시간과 계절 개념을 익히게 합니다.", age_target: "4~7세", price_range: "1~3만원" },
+      { category: "어린이 학습 달력", search_query: "유아 자석 만년달력 한글", product_name_example: "숫자와 한글 자석으로 날짜를 만드는 유아용 만년달력", reason: "아이와 직접 날짜를 조합하며 계획 습관과 기초 학습을 함께 지원합니다.", age_target: "5~7세", price_range: "2~4만원" },
+      { category: "어린이 학습 달력", search_query: "어린이 벽걸이 달력 스티커", product_name_example: "가족 행사와 아이의 일정을 표시하는 대형 벽걸이 달력", reason: "가족의 계획을 한눈에 공유하며 아이에게 일정 관리의 기초를 알려줍니다.", age_target: "4~7세", price_range: "1~2만원" },
     ],
     share_hook: "저는 아이 인생의 다정한 매니저래요—우리 모임 계획형 부모를 찾아보세요!",
     coord: { a: -1, b: 1 },
@@ -398,13 +432,25 @@ export const TYPES: Record<TypeKey, TypeContent> = {
       "하루에 한 번 아이가 정한 놀이를 부모가 15분 동안 그대로 따라가 봅니다.",
       "안전과 생활에 꼭 필요한 규칙을 세 가지만 정해 짧은 문장으로 반복합니다.",
     ],
-    item_categories: [
-      "오픈엔디드 블록",
-      "유아 미술 재료 세트",
-      "역할놀이 소품",
-      "촉감 놀이 세트",
-      "자연 관찰 키트",
-      "붙였다 뗐다 스티커북",
+    product_candidates: [
+      { category: "오픈엔디드 블록", search_query: "원목 무지개 블록 유아", product_name_example: "쌓기·터널·균형 놀이가 가능한 원목 무지개 블록", reason: "정해진 완성법 없이 아이의 상상에 따라 매번 다른 놀이로 확장됩니다.", age_target: "3~7세", price_range: "2~6만원" },
+      { category: "오픈엔디드 블록", search_query: "대형 소프트 블록 유아", product_name_example: "집과 길, 장애물을 자유롭게 만드는 대형 소프트 블록 세트", reason: "온몸을 사용해 공간을 바꾸며 아이의 자유로운 탐색 욕구를 채워줍니다.", age_target: "3~6세", price_range: "3~8만원" },
+      { category: "오픈엔디드 블록", search_query: "자석 블록 투명 유아", product_name_example: "평면과 입체 작품을 자유롭게 만드는 투명 자석 블록 세트", reason: "색과 빛, 구조를 마음껏 조합하며 창의적인 시도를 이어갈 수 있습니다.", age_target: "4~7세", price_range: "3~7만원" },
+      { category: "유아 미술 재료 세트", search_query: "유아 미술놀이 재료 종합세트", product_name_example: "색종이·폼폼·막대·스팽글이 담긴 유아 미술 재료 세트", reason: "다양한 재료를 아이가 직접 고르고 조합하며 자기만의 작품을 만들게 합니다.", age_target: "4~7세", price_range: "1~3만원" },
+      { category: "유아 미술 재료 세트", search_query: "유아 물감 세트 안전 미술놀이", product_name_example: "물감·붓·팔레트·도화지가 포함된 유아 미술놀이 세트", reason: "정답 없는 색채 놀이로 아이의 감정과 상상을 자유롭게 표현할 수 있습니다.", age_target: "3~7세", price_range: "1~3만원" },
+      { category: "유아 미술 재료 세트", search_query: "유아 점토 만들기 도구 세트", product_name_example: "여러 색 점토와 찍기·밀기 도구가 포함된 만들기 세트", reason: "손으로 형태를 계속 바꾸며 아이가 떠올린 생각을 제한 없이 구현할 수 있습니다.", age_target: "3~7세", price_range: "1~3만원" },
+      { category: "역할놀이 소품", search_query: "유아 주방놀이 소품 세트", product_name_example: "음식 재료와 조리 도구가 다양하게 담긴 주방 역할놀이 소품", reason: "요리사와 손님 등 아이가 원하는 역할로 이야기를 자유롭게 만들어갈 수 있습니다.", age_target: "3~7세", price_range: "2~5만원" },
+      { category: "역할놀이 소품", search_query: "유아 직업 역할놀이 의상 소품", product_name_example: "여러 직업으로 변신할 수 있는 역할놀이 의상과 소품 세트", reason: "다양한 인물이 되어보며 아이의 상상 세계와 표현력을 넓혀줍니다.", age_target: "4~7세", price_range: "2~4만원" },
+      { category: "역할놀이 소품", search_query: "유아 시장놀이 계산대 소품", product_name_example: "장바구니·모형 식품·놀이 돈이 포함된 시장놀이 소품", reason: "놀이의 규칙과 이야기를 아이가 직접 만들며 사회적 상상력을 발휘할 수 있습니다.", age_target: "3~7세", price_range: "2~5만원" },
+      { category: "촉감 놀이 세트", search_query: "유아 촉감놀이 모래 세트", product_name_example: "틀과 도구가 포함된 실내용 촉감 모래 놀이 세트", reason: "만지고 누르고 흩트리는 과정 자체를 즐기며 감각과 상상을 함께 자극합니다.", age_target: "3~7세", price_range: "2~4만원" },
+      { category: "촉감 놀이 세트", search_query: "유아 촉감놀이 슬라임 만들기", product_name_example: "색과 장식을 조합하는 어린이 촉감 슬라임 만들기 세트", reason: "아이 스스로 질감과 색을 바꿔보며 자유로운 감각 실험을 즐길 수 있습니다.", age_target: "5~7세", price_range: "1~3만원" },
+      { category: "촉감 놀이 세트", search_query: "유아 물감 촉감놀이 도구 세트", product_name_example: "롤러·스펀지·도장으로 자유롭게 찍는 촉감 미술 세트", reason: "여러 도구의 흔적과 질감을 비교하며 아이만의 표현 방식을 발견하게 합니다.", age_target: "3~6세", price_range: "1~2만원" },
+      { category: "자연 관찰 키트", search_query: "어린이 곤충 관찰 채집통 세트", product_name_example: "채집통·핀셋·관찰경이 포함된 어린이 곤충 관찰 키트", reason: "밖에서 발견한 생물을 아이가 주도적으로 살펴보며 호기심을 확장할 수 있습니다.", age_target: "4~7세", price_range: "1~3만원" },
+      { category: "자연 관찰 키트", search_query: "어린이 식물 키우기 관찰 키트", product_name_example: "씨앗을 심고 성장 과정을 기록하는 어린이 식물 관찰 키트", reason: "매일 달라지는 식물을 자유롭게 관찰하며 생명과 변화에 대한 감각을 키워줍니다.", age_target: "4~7세", price_range: "1~2만원" },
+      { category: "자연 관찰 키트", search_query: "어린이 야외 탐험 관찰 세트", product_name_example: "쌍안경·나침반·돋보기로 구성된 어린이 야외 탐험 세트", reason: "정해진 답을 찾기보다 아이가 관심 가는 자연을 직접 탐색하도록 이끌어줍니다.", age_target: "5~7세", price_range: "2~4만원" },
+      { category: "붙였다 뗐다 스티커북", search_query: "유아 붙였다 떼는 스티커북", product_name_example: "배경판에 반복해서 붙이며 장면을 꾸미는 스티커북", reason: "스티커 위치와 이야기를 아이 마음대로 바꾸며 창의적인 놀이를 반복할 수 있습니다.", age_target: "3~6세", price_range: "1만원 이하" },
+      { category: "붙였다 뗐다 스티커북", search_query: "유아 공룡 재사용 스티커북", product_name_example: "공룡과 자연 배경을 자유롭게 꾸미는 재사용 스티커북", reason: "좋아하는 소재로 새로운 장면을 계속 만들며 상상과 이야기 구성을 즐기게 합니다.", age_target: "3~7세", price_range: "1만원대" },
+      { category: "붙였다 뗐다 스티커북", search_query: "유아 옷입히기 재사용 스티커북", product_name_example: "인물과 의상을 자유롭게 조합하는 붙였다 떼는 스티커북", reason: "정해진 조합 없이 취향대로 꾸미며 아이의 개성과 표현력을 살려줍니다.", age_target: "4~7세", price_range: "1만원대" },
     ],
     share_hook: "저는 아이의 엉뚱함을 키워주는 자유형이래요—함께 육아 여행 떠날 친구를 태그해보세요!",
     coord: { a: 1, b: -1 },
@@ -434,13 +480,25 @@ export const TYPES: Record<TypeKey, TypeContent> = {
       "하루에 한 번 결과보다 시도한 과정을 구체적으로 말해 칭찬합니다.",
       "잠들기 전 손을 잡거나 안아주며 '오늘도 네가 해내는 걸 잘 봤어'라고 표현합니다.",
     ],
-    item_categories: [
-      "유아 퍼즐",
-      "과학 실험 키트",
-      "어린이 보드게임",
-      "몬테소리 교구",
-      "자연 관찰 돋보기",
-      "유아 문제 해결 워크북",
+    product_candidates: [
+      { category: "유아 퍼즐", search_query: "유아 꼭지 퍼즐 원목", product_name_example: "동물과 탈것 그림을 맞추는 손잡이형 원목 꼭지 퍼즐", reason: "아이 혼자 모양과 위치를 비교하며 성공 경험을 쌓는 과정을 지켜볼 수 있습니다.", age_target: "3~4세", price_range: "1~2만원" },
+      { category: "유아 퍼즐", search_query: "유아 단계별 판퍼즐 세트", product_name_example: "조각 수가 점차 늘어나는 단계별 유아 판퍼즐 세트", reason: "아이의 현재 수준에 맞춰 스스로 도전하고 성장하는 모습을 확인하기 좋습니다.", age_target: "3~6세", price_range: "1~3만원" },
+      { category: "유아 퍼즐", search_query: "어린이 100피스 퍼즐", product_name_example: "관찰할 요소가 풍부한 어린이용 100조각 그림 퍼즐", reason: "집중해서 단서를 찾고 시행착오로 해결하는 힘을 기르는 데 도움이 됩니다.", age_target: "5~7세", price_range: "1~2만원" },
+      { category: "과학 실험 키트", search_query: "유아 과학 실험 키트 안전", product_name_example: "색 변화와 거품 반응을 관찰하는 어린이 기초 과학 실험 키트", reason: "부모가 답을 알려주기 전에 아이가 현상을 관찰하고 원인을 추측하게 해줍니다.", age_target: "5~7세", price_range: "2~4만원" },
+      { category: "과학 실험 키트", search_query: "어린이 자석 과학 실험 세트", product_name_example: "밀기와 당기기를 직접 시험하는 어린이 자석 실험 세트", reason: "아이가 여러 방법을 스스로 시도하며 규칙을 발견하는 과정을 지원합니다.", age_target: "4~7세", price_range: "1~3만원" },
+      { category: "과학 실험 키트", search_query: "어린이 화산 폭발 실험 키트", product_name_example: "모형을 만들고 반응을 관찰하는 어린이 화산 실험 키트", reason: "예상하고 실험한 뒤 결과를 비교하는 기초적인 탐구 경험을 제공합니다.", age_target: "5~7세", price_range: "1~3만원" },
+      { category: "어린이 보드게임", search_query: "유아 메모리 보드게임", product_name_example: "그림의 위치를 기억해 짝을 맞추는 유아 메모리 게임", reason: "부모의 개입을 줄이고 아이가 관찰력과 기억력으로 해결하도록 기다릴 수 있습니다.", age_target: "3~6세", price_range: "1~3만원" },
+      { category: "어린이 보드게임", search_query: "어린이 협동 보드게임 5세", product_name_example: "가족이 함께 문제를 해결하는 어린이 협동 보드게임", reason: "아이의 판단 방식을 관찰하면서 경쟁 부담 없이 해결 전략을 나눌 수 있습니다.", age_target: "5~7세", price_range: "2~4만원" },
+      { category: "어린이 보드게임", search_query: "유아 규칙 보드게임 4세", product_name_example: "색과 모양 규칙을 찾아 진행하는 입문용 유아 보드게임", reason: "간단한 규칙 속에서 아이가 선택하고 결과를 경험하며 사고력을 키우게 합니다.", age_target: "4~7세", price_range: "1~3만원" },
+      { category: "몬테소리 교구", search_query: "몬테소리 소근육 교구 유아", product_name_example: "단추·지퍼·버클을 스스로 조작하는 몬테소리 소근육 교구", reason: "부모가 대신하지 않고 아이가 반복 연습하며 생활 기술을 익히도록 돕습니다.", age_target: "3~5세", price_range: "1~3만원" },
+      { category: "몬테소리 교구", search_query: "몬테소리 분류 교구 색깔 모양", product_name_example: "색과 모양을 기준으로 나누는 원목 분류 교구", reason: "아이가 스스로 기준을 발견하고 분류하는 사고 과정을 차분히 관찰할 수 있습니다.", age_target: "3~6세", price_range: "2~4만원" },
+      { category: "몬테소리 교구", search_query: "몬테소리 수세기 교구 원목", product_name_example: "숫자와 수량을 직접 대응시키는 원목 수 세기 교구", reason: "손으로 조작하고 오류를 바로잡으며 수 개념을 자기 속도로 이해하게 합니다.", age_target: "4~7세", price_range: "2~4만원" },
+      { category: "자연 관찰 돋보기", search_query: "어린이 돋보기 대형 안전", product_name_example: "아이 손에 맞는 손잡이와 넓은 렌즈를 갖춘 안전 돋보기", reason: "일상에서 발견한 작은 사물을 아이가 자세히 살펴보는 습관을 길러줍니다.", age_target: "3~7세", price_range: "1만원 이하" },
+      { category: "자연 관찰 돋보기", search_query: "어린이 곤충 관찰 확대경 통", product_name_example: "곤충을 위와 아래에서 확대해 보는 어린이 관찰통", reason: "생물의 움직임과 특징을 가까이 관찰하며 스스로 질문을 떠올리게 합니다.", age_target: "4~7세", price_range: "1~2만원" },
+      { category: "자연 관찰 돋보기", search_query: "어린이 휴대용 현미경 자연관찰", product_name_example: "야외에서 잎과 돌을 확대해 보는 휴대용 어린이 현미경", reason: "눈에 잘 보이지 않던 차이를 발견하며 깊이 관찰하는 즐거움을 알려줍니다.", age_target: "5~7세", price_range: "2~5만원" },
+      { category: "유아 문제 해결 워크북", search_query: "유아 사고력 워크북 5세", product_name_example: "규칙 찾기·분류·비교 문제로 구성된 유아 사고력 워크북", reason: "아이의 답뿐 아니라 어떤 방식으로 생각하는지 차분히 살펴볼 수 있습니다.", age_target: "5~6세", price_range: "1만원 이하" },
+      { category: "유아 문제 해결 워크북", search_query: "유아 미로찾기 워크북", product_name_example: "난이도가 단계적으로 높아지는 유아 미로 찾기 워크북", reason: "막힌 길에서 스스로 돌아가 다른 방법을 찾는 문제 해결 경험을 제공합니다.", age_target: "4~7세", price_range: "1만원 이하" },
+      { category: "유아 문제 해결 워크북", search_query: "유아 숨은그림찾기 워크북", product_name_example: "관찰 단서가 풍부한 유아 숨은그림찾기 워크북", reason: "부모가 정답을 재촉하지 않고 아이의 집중과 발견 과정을 지켜보기에 좋습니다.", age_target: "4~7세", price_range: "1만원 이하" },
     ],
     share_hook: "저는 말없이 아이의 성장을 포착하는 관찰형이래요—우리 주변 관찰형 부모를 소환해보세요!",
     coord: { a: -1, b: -1 },

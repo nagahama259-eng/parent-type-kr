@@ -40,7 +40,7 @@ export default function TestPage() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col px-6 py-10 max-w-2xl mx-auto">
+    <main className="min-h-screen flex flex-col px-5 md:px-6 py-8 md:py-10 max-w-2xl mx-auto">
       {/* 진행률 */}
       <div className="mb-12">
         <div className="flex justify-between text-xs text-[var(--ink-soft)] mb-2 tracking-wider">
@@ -97,7 +97,7 @@ function ChoiceButton({
   return (
     <button
       onClick={onClick}
-      className="text-left px-6 py-5 bg-[var(--bg-elevated)] border border-[var(--line)] hover:border-[var(--accent)] hover:bg-white transition-all group"
+      className="text-left px-5 md:px-6 py-4 md:py-5 bg-[var(--bg-elevated)] border border-[var(--line)] hover:border-[var(--accent)] hover:bg-white transition-all group"
     >
       <span className="text-base md:text-lg leading-relaxed group-hover:text-[var(--accent)] transition-colors">
         {label}
