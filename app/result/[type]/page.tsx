@@ -24,6 +24,13 @@ export async function generateMetadata({
     openGraph: {
       title: `저는 ${t.name_kr}이래요`,
       description: t.tagline,
+      type: "website",
+      locale: "ko_KR",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `저는 ${t.name_kr}이래요`,
+      description: t.tagline,
     },
   };
 }
