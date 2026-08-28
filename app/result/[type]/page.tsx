@@ -86,8 +86,8 @@ export default async function ResultPage({
         {/* 상단 공유 CTA - 결과 확인 직후 공유 유도 */}
         <div className="mb-16 md:mb-20">
           <TopShareCTA
+            typeKey={type}
             typeName={t.name_kr}
-            hookText={t.share_hook}
             color={t.color}
           />
           <p className="text-xs text-[var(--ink-soft)] text-center mt-3">
@@ -254,7 +254,7 @@ export default async function ResultPage({
 
         {/* 공유 */}
         <section className="mb-16 pt-16 border-t border-[var(--line)]">
-          <ShareButtons hookText={t.share_hook} />
+          <ShareButtons typeKey={type} typeName={t.name_kr} />
         </section>
 
         {/* 재시작 & 다른 유형 */}

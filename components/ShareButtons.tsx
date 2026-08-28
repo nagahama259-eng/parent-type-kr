@@ -3,15 +3,19 @@
 import { useState } from "react";
 
 interface Props {
-  hookText: string; // 공유 훅 카피
+  typeKey: string;
+  typeName: string;
 }
 
-export default function ShareButtons({ hookText }: Props) {
+export default function ShareButtons({ typeKey, typeName }: Props) {
   const [copied, setCopied] = useState(false);
 
-  // 결과 URL이 아니라 랜딩 페이지 URL을 공유 (친구가 자기 테스트 시작하도록)
-  const url = typeof window !== "undefined" ? window.location.origin + "/" : "";
-  const shareText = `${hookText}\n\n나는 어떤 부모일까? 지금 테스트해보기 ↓`;
+  // 랜딩 URL + from 파라미터 → 유형별 미리보기 이미지 자동 매칭
+  const url =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/?from=${typeKey}`
+      : "";
+  const shareText = `저는 ${typeName}래요 😊\n\n당신은 어떤 유형일까요?\n지금 3분 안에 진단해보세요 ↓`;
 
   const handleCopy = async () => {
     try {
@@ -24,7 +28,7 @@ export default function ShareButtons({ hookText }: Props) {
   };
 
   const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-    hookText
+    shareText
   )}&url=${encodeURIComponent(url)}`;
 
   return (
@@ -49,7 +53,7 @@ export default function ShareButtons({ hookText }: Props) {
         </a>
       </div>
       <p className="text-xs text-[var(--ink-soft)] mt-2">
-        친구가 자기 유형을 확인할 수 있는 테스트 링크가 공유돼요
+        친구가 클릭하면 {typeName} 결과 이미지가 카톡 미리보기로 뜹니다
       </p>
     </div>
   );

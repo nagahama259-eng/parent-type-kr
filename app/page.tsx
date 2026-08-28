@@ -1,10 +1,76 @@
 import Link from "next/link";
-import { TYPES, THEORETICAL_BASIS } from "@/lib/data";
+import { TYPES, THEORETICAL_BASIS, TypeKey } from "@/lib/data";
+import { isValidTypeKey } from "@/lib/scoring";
 
-export default function LandingPage() {
+// 공유 링크(/?from=[type])로 방문 시: 해당 유형의 OG 이미지·문구로 카톡 미리보기 커스터마이징
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ from?: string }>;
+}) {
+  const { from } = await searchParams;
+
+  if (from && isValidTypeKey(from)) {
+    const t = TYPES[from as TypeKey];
+    return {
+      title: `친구가 ${t.name_kr}래요 — 당신은?`,
+      description: `친구가 '${t.tagline}' 결과를 받았어요. 당신은 어떤 부모일까요?`,
+      openGraph: {
+        title: `친구가 ${t.name_kr}래요`,
+        description: t.tagline,
+        images: [
+          {
+            url: `/result/${from}/opengraph-image`,
+            width: 1200,
+            height: 630,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image" as const,
+        title: `친구가 ${t.name_kr}래요`,
+        description: t.tagline,
+        images: [`/result/${from}/opengraph-image`],
+      },
+    };
+  }
+
+  return {}; // 기본 메타데이터 (layout.tsx)로 fallback
+}
+
+export default async function LandingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ from?: string }>;
+}) {
+  const { from } = await searchParams;
+  const fromType =
+    from && isValidTypeKey(from) ? TYPES[from as TypeKey] : null;
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-5 md:px-6 py-12 md:py-16">
       <div className="max-w-2xl w-full">
+        {/* 친구 공유 알림 배너 (from 파라미터 있을 때) */}
+        {fromType && (
+          <div
+            className="mb-8 px-5 py-4 border-l-4 bg-[var(--bg-elevated)]"
+            style={{ borderColor: fromType.color }}
+          >
+            <p className="text-sm text-[var(--ink-soft)] mb-1">
+              친구가 이런 결과를 받았어요
+            </p>
+            <p
+              className="text-lg font-medium"
+              style={{ color: fromType.color }}
+            >
+              {fromType.name_kr}
+            </p>
+            <p className="text-xs text-[var(--ink-soft)] mt-1">
+              {fromType.tagline}
+            </p>
+          </div>
+        )}
+
         {/* 헤더 아이브로우 */}
         <p className="text-xs tracking-[0.3em] uppercase text-[var(--ink-soft)] mb-8">
           Parenting Type Test · 20 Questions

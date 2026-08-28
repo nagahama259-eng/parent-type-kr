@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://parent-type-kr.vercel.app"),
   title: "부모 성향 테스트 — 우리 아이 맞춤 케어 가이드",
   description:
     "20문항으로 알아보는 우리 부부의 육아 스타일. 유형별 아이 성장 방향과 맞춤 케어 팁까지.",
