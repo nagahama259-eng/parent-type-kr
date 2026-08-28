@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TYPES, TypeKey, TYPE_KEYS, THEORETICAL_BASIS, REFERENCES, DISCLAIMER } from "@/lib/data";
+import { TYPES, TypeKey, TYPE_KEYS, THEORETICAL_BASIS, REFERENCES, DISCLAIMER, CATEGORY_ICONS } from "@/lib/data";
 import { isValidTypeKey } from "@/lib/scoring";
 import QuadrantMap from "@/components/QuadrantMap";
 import ShareButtons from "@/components/ShareButtons";
@@ -169,35 +169,60 @@ export default async function ResultPage({
               return primary.map((p, i) => (
                 <div
                   key={i}
-                  className="border border-[var(--line)] bg-[var(--bg-elevated)] p-6 flex flex-col"
+                  className="border border-[var(--line)] bg-[var(--bg-elevated)] flex flex-col overflow-hidden"
                 >
-                  <p className="text-xs text-[var(--ink-soft)] tracking-wider mb-3">
-                    {p.category}
-                  </p>
-                  <p className="text-[var(--ink)] font-medium leading-snug mb-3">
-                    {p.product_name_example}
-                  </p>
-                  <p className="text-sm text-[var(--ink-soft)] leading-relaxed mb-4 flex-1">
-                    {p.reason}
-                  </p>
-                  <div className="flex items-center justify-between text-xs text-[var(--ink-soft)] mb-4">
-                    <span>{p.age_target}</span>
-                    <span>{p.price_range}</span>
+                  {/* 상품 이미지 영역 */}
+                  <div className="aspect-square relative overflow-hidden">
+                    {p.image_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={p.image_url}
+                        alt={p.product_name_example}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div
+                        className="w-full h-full flex items-center justify-center text-7xl"
+                        style={{ backgroundColor: t.color + "25" }}
+                      >
+                        <span className="opacity-70">
+                          {CATEGORY_ICONS[p.category] || "🎁"}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  {p.coupang_link ? (
-                    <a
-                      href={p.coupang_link}
-                      target="_blank"
-                      rel="nofollow noopener noreferrer"
-                      className="inline-block text-center py-3 border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-elevated)] transition-colors text-sm"
-                    >
-                      쿠팡에서 보기 →
-                    </a>
-                  ) : (
-                    <span className="inline-block text-center py-3 border border-[var(--line)] text-[var(--ink-soft)] text-sm">
-                      쿠팡 링크 준비 중
-                    </span>
-                  )}
+
+                  {/* 콘텐츠 영역 */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <p className="text-xs text-[var(--ink-soft)] tracking-wider mb-3">
+                      {p.category}
+                    </p>
+                    <p className="text-[var(--ink)] font-medium leading-snug mb-3">
+                      {p.product_name_example}
+                    </p>
+                    <p className="text-sm text-[var(--ink-soft)] leading-relaxed mb-4 flex-1">
+                      {p.reason}
+                    </p>
+                    <div className="flex items-center justify-between text-xs text-[var(--ink-soft)] mb-4">
+                      <span>{p.age_target}</span>
+                      <span>{p.price_range}</span>
+                    </div>
+                    {p.coupang_link ? (
+                      <a
+                        href={p.coupang_link}
+                        target="_blank"
+                        rel="nofollow noopener noreferrer"
+                        className="inline-block text-center py-3 border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-elevated)] transition-colors text-sm"
+                      >
+                        쿠팡에서 보기 →
+                      </a>
+                    ) : (
+                      <span className="inline-block text-center py-3 border border-[var(--line)] text-[var(--ink-soft)] text-sm">
+                        쿠팡 링크 준비 중
+                      </span>
+                    )}
+                  </div>
                 </div>
               ));
             })()}
