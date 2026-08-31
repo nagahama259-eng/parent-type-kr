@@ -108,7 +108,7 @@ export default async function OGImage() {
               display: "flex",
             }}
           >
-            20문항으로 진단하는 육아 스타일 4유형
+            28문항으로 진단하는 육아 스타일 16유형
           </div>
         </div>
 

@@ -22,10 +22,12 @@ export default function TestPage() {
 
     if (current + 1 >= QUESTIONS.length) {
       const result = calculateResult(nextAnswers);
-      // 결과 페이지로 이동. 점수는 URL 파라미터로 전달 (공유 시 사라져도 결과 유형은 유지)
+      // 결과 페이지로 이동. 4축 점수를 URL 파라미터로 전달
       const params = new URLSearchParams({
         a: String(result.percentA_gamseong),
         b: String(result.percentB_gaeip),
+        c: String(result.percentC_wonchik),
+        d: String(result.percentD_dojeon),
       });
       router.push(`/result/${result.type}?${params.toString()}`);
     } else {

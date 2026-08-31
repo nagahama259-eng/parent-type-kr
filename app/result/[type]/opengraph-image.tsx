@@ -129,12 +129,12 @@ export default async function OGImage({
           </div>
           <div
             style={{
-              fontSize: 180,
+              fontSize: 140,
               color: t.color,
               fontWeight: 700,
               lineHeight: 1,
               marginBottom: 36,
-              letterSpacing: -4,
+              letterSpacing: -3,
               display: "flex",
             }}
           >

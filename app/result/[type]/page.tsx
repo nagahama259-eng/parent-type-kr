@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TYPES, TypeKey, TYPE_KEYS, THEORETICAL_BASIS, REFERENCES, DISCLAIMER, CATEGORY_ICONS } from "@/lib/data";
+import {
+  TYPES,
+  TypeKey,
+  TYPE_KEYS,
+  THEORETICAL_BASIS,
+  REFERENCES,
+  DISCLAIMER,
+  CATEGORY_ICONS,
+  PRODUCT_CATALOG,
+  COMPATIBILITY_MESSAGES,
+} from "@/lib/data";
 import { isValidTypeKey } from "@/lib/scoring";
 import QuadrantMap from "@/components/QuadrantMap";
 import ShareButtons from "@/components/ShareButtons";
@@ -41,18 +51,27 @@ export default async function ResultPage({
   searchParams,
 }: {
   params: Promise<{ type: string }>;
-  searchParams: Promise<{ a?: string; b?: string }>;
+  searchParams: Promise<{ a?: string; b?: string; c?: string; d?: string }>;
 }) {
   const { type } = await params;
-  const { a, b } = await searchParams;
+  const { a, b, c, d } = await searchParams;
 
   if (!isValidTypeKey(type)) notFound();
 
   const t = TYPES[type];
+  const compatible = TYPES[t.compatible_type];
+  const clash = TYPES[t.clash_type];
 
-  // URL 파라미터로 온 점수. 공유 링크로 들어온 경우 기본값(유형 정중앙)
-  const percentA_gamseong = a ? Number(a) : t.coord.a === 1 ? 75 : 25;
-  const percentB_gaeip = b ? Number(b) : t.coord.b === 1 ? 75 : 25;
+  // URL 파라미터로 온 점수. 공유 링크로 들어온 경우 기본값(유형 좌표 반영)
+  const pctA = a ? Number(a) : t.coord.a === 1 ? 75 : 25;
+  const pctB = b ? Number(b) : t.coord.b === 1 ? 75 : 25;
+  const pctC = c ? Number(c) : t.coord.c === 1 ? 75 : 25;
+  const pctD = d ? Number(d) : t.coord.d === 1 ? 75 : 25;
+
+  // 유형의 6개 상품
+  const products = t.product_categories
+    .map((cat) => PRODUCT_CATALOG[cat])
+    .filter(Boolean);
 
   return (
     <main className="min-h-screen px-5 md:px-6 py-10 md:py-16">
@@ -74,16 +93,18 @@ export default async function ResultPage({
           · {THEORETICAL_BASIS}
         </p>
 
-        {/* 사분면 지도 */}
+        {/* 사분면 지도 - 계열 위치 + 4축 백분율 */}
         <div className="mb-12 md:mb-16">
           <QuadrantMap
             currentType={type}
-            percentA_gamseong={percentA_gamseong}
-            percentB_gaeip={percentB_gaeip}
+            pctA={pctA}
+            pctB={pctB}
+            pctC={pctC}
+            pctD={pctD}
           />
         </div>
 
-        {/* 상단 공유 CTA - 결과 확인 직후 공유 유도 */}
+        {/* 상단 공유 CTA */}
         <div className="mb-16 md:mb-20">
           <TopShareCTA
             typeKey={type}
@@ -104,7 +125,7 @@ export default async function ResultPage({
         </section>
 
         {/* 강점 */}
-        <section className="mb-16">
+        <section className="mb-12 md:mb-16">
           <SectionLabel>강점</SectionLabel>
           <ul className="space-y-4">
             {t.strengths.map((s, i) => (
@@ -124,7 +145,7 @@ export default async function ResultPage({
         </section>
 
         {/* 유의점 */}
-        <section className="mb-16">
+        <section className="mb-12 md:mb-16">
           <SectionLabel>유의점</SectionLabel>
           <ul className="space-y-4">
             {t.cautions.map((c, i) => (
@@ -135,8 +156,11 @@ export default async function ResultPage({
           </ul>
         </section>
 
-        {/* 아이 성장 */}
-        <section className="mb-12 md:mb-16 bg-[var(--bg-elevated)] p-6 md:p-8 border-l-4" style={{ borderColor: t.color }}>
+        {/* 아이 성장 + 논문 근거 */}
+        <section
+          className="mb-12 md:mb-16 bg-[var(--bg-elevated)] p-6 md:p-8 border-l-4"
+          style={{ borderColor: t.color }}
+        >
           <SectionLabel>우리 아이는 이렇게 자라요</SectionLabel>
           <p className="text-base md:text-lg leading-relaxed text-[var(--ink)] mb-6">
             {t.child_growth}
@@ -152,7 +176,7 @@ export default async function ResultPage({
         </section>
 
         {/* 케어 팁 */}
-        <section className="mb-16">
+        <section className="mb-12 md:mb-16">
           <SectionLabel>오늘 해볼 만한 케어</SectionLabel>
           <ol className="space-y-6">
             {t.care_tips.map((tip, i) => (
@@ -171,81 +195,126 @@ export default async function ResultPage({
           </ol>
         </section>
 
-        {/* 쿠팡 파트너스 상품 - 카테고리별 첫 후보 표시 */}
+        {/* 육아 동반자 궁합 (배우자 유형) */}
+        <section className="mb-12 md:mb-16">
+          <SectionLabel>육아 동반자 궁합</SectionLabel>
+          <p className="text-sm text-[var(--ink-soft)] mb-6">
+            배우자와 함께 테스트해서 어떤 조합인지 확인해보세요
+          </p>
+
+          {/* 찰떡궁합 */}
+          <div
+            className="mb-4 border-l-4 bg-[var(--bg-elevated)] p-6"
+            style={{ borderColor: compatible.color }}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-xs tracking-wider text-[var(--ink-soft)]">
+                💫 찰떡궁합
+              </span>
+              <Link
+                href={`/result/${compatible.key}`}
+                className="text-base md:text-lg font-medium hover:underline"
+                style={{ color: compatible.color }}
+              >
+                {compatible.name_kr}
+              </Link>
+            </div>
+            <p className="text-sm text-[var(--ink-soft)] mb-3">
+              {compatible.tagline}
+            </p>
+            <p className="text-sm leading-relaxed text-[var(--ink)]">
+              {COMPATIBILITY_MESSAGES.match}
+            </p>
+          </div>
+
+          {/* 안맞음 */}
+          <div className="border-l-4 border-[var(--line)] bg-[var(--bg-elevated)] p-6 opacity-90">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-xs tracking-wider text-[var(--ink-soft)]">
+                ⚡ 서로 노력이 필요한 관계
+              </span>
+              <Link
+                href={`/result/${clash.key}`}
+                className="text-base md:text-lg font-medium hover:underline text-[var(--ink)]"
+              >
+                {clash.name_kr}
+              </Link>
+            </div>
+            <p className="text-sm text-[var(--ink-soft)] mb-3">
+              {clash.tagline}
+            </p>
+            <p className="text-sm leading-relaxed text-[var(--ink)]">
+              {COMPATIBILITY_MESSAGES.clash}
+            </p>
+          </div>
+        </section>
+
+        {/* 쿠팡 상품 */}
         <section className="mb-16">
           <SectionLabel>{t.name_kr}에게 어울리는 아이템</SectionLabel>
           <p className="text-sm text-[var(--ink-soft)] mb-8">
             우리 아이 성장 방향과 결이 맞는 아이템을 골라봤어요
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {(() => {
-              // 카테고리별 첫 후보만 추출 (중복 제거)
-              const seen = new Set<string>();
-              const primary = t.product_candidates.filter((p) => {
-                if (seen.has(p.category)) return false;
-                seen.add(p.category);
-                return true;
-              });
-              return primary.map((p, i) => (
-                <div
-                  key={i}
-                  className="border border-[var(--line)] bg-[var(--bg-elevated)] flex flex-col overflow-hidden"
-                >
-                  {/* 상품 이미지 영역 */}
-                  <div className="aspect-square relative overflow-hidden">
-                    {p.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={p.image_url}
-                        alt={p.product_name_example}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div
-                        className="w-full h-full flex items-center justify-center text-7xl"
-                        style={{ backgroundColor: t.color + "25" }}
-                      >
-                        <span className="opacity-70">
-                          {CATEGORY_ICONS[p.category] || "🎁"}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* 콘텐츠 영역 */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <p className="text-xs text-[var(--ink-soft)] tracking-wider mb-3">
-                      {p.category}
-                    </p>
-                    <p className="text-[var(--ink)] font-medium leading-snug mb-3">
-                      {p.product_name_example}
-                    </p>
-                    <p className="text-sm text-[var(--ink-soft)] leading-relaxed mb-4 flex-1">
-                      {p.reason}
-                    </p>
-                    <div className="flex items-center justify-between text-xs text-[var(--ink-soft)] mb-4">
-                      <span>{p.age_target}</span>
-                      <span>{p.price_range}</span>
-                    </div>
-                    {p.coupang_link ? (
-                      <a
-                        href={p.coupang_link}
-                        target="_blank"
-                        rel="nofollow noopener noreferrer"
-                        className="inline-block text-center py-3 border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-elevated)] transition-colors text-sm"
-                      >
-                        쿠팡에서 보기 →
-                      </a>
-                    ) : (
-                      <span className="inline-block text-center py-3 border border-[var(--line)] text-[var(--ink-soft)] text-sm">
-                        쿠팡 링크 준비 중
+            {products.map((p, i) => (
+              <div
+                key={i}
+                className="border border-[var(--line)] bg-[var(--bg-elevated)] flex flex-col overflow-hidden"
+              >
+                {/* 상품 이미지 영역 */}
+                <div className="aspect-square relative overflow-hidden">
+                  {p.image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={p.image_url}
+                      alt={p.product_name_example}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div
+                      className="w-full h-full flex items-center justify-center text-7xl"
+                      style={{ backgroundColor: t.color + "25" }}
+                    >
+                      <span className="opacity-70">
+                        {CATEGORY_ICONS[p.category] || "🎁"}
                       </span>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
-              ));
-            })()}
+
+                {/* 콘텐츠 영역 */}
+                <div className="p-5 flex flex-col flex-1">
+                  <p className="text-xs text-[var(--ink-soft)] tracking-wider mb-3">
+                    {p.category}
+                  </p>
+                  <p className="text-[var(--ink)] font-medium leading-snug mb-3">
+                    {p.product_name_example}
+                  </p>
+                  <p className="text-sm text-[var(--ink-soft)] leading-relaxed mb-4 flex-1">
+                    {p.reason}
+                  </p>
+                  <div className="flex items-center justify-between text-xs text-[var(--ink-soft)] mb-4">
+                    <span>{p.age_target}</span>
+                    <span>{p.price_range}</span>
+                  </div>
+                  {p.coupang_link ? (
+                    <a
+                      href={p.coupang_link}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      className="inline-block text-center py-3 border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-elevated)] transition-colors text-sm"
+                    >
+                      쿠팡에서 보기 →
+                    </a>
+                  ) : (
+                    <span className="inline-block text-center py-3 border border-[var(--line)] text-[var(--ink-soft)] text-sm">
+                      쿠팡 링크 준비 중
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
           <p className="text-[10px] text-[var(--ink-soft)] mt-6">
             * 본 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
@@ -257,12 +326,17 @@ export default async function ResultPage({
           <ShareButtons typeKey={type} typeName={t.name_kr} />
         </section>
 
-        {/* 재시작 & 다른 유형 */}
+        {/* 재시작 & 계열 내 다른 유형 */}
         <section className="flex flex-col gap-8">
           <div>
-            <SectionLabel>다른 유형도 살펴보기</SectionLabel>
+            <SectionLabel>같은 계열의 다른 유형</SectionLabel>
+            <p className="text-xs text-[var(--ink-soft)] mb-4">
+              같은 색 계열은 비슷한 육아 가치관을 가진 유형들입니다
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {TYPE_KEYS.filter((k) => k !== type).map((k) => {
+              {TYPE_KEYS.filter(
+                (k) => k !== type && TYPES[k].family === t.family
+              ).map((k) => {
                 const other = TYPES[k];
                 return (
                   <Link
