@@ -10,12 +10,12 @@ interface Props {
 export default function ShareButtons({ typeKey, typeName }: Props) {
   const [copied, setCopied] = useState(false);
 
-  // 랜딩 URL + from 파라미터 → 유형별 미리보기 이미지 자동 매칭
+  // 결과 페이지 URL로 공유 (친구가 결과 확인하며 함께 대화, 쿠팡 링크 노출)
   const url =
     typeof window !== "undefined"
-      ? `${window.location.origin}/?from=${typeKey}`
+      ? `${window.location.origin}/result/${typeKey}`
       : "";
-  const shareText = `저는 ${typeName}래요 😊\n\n당신은 어떤 유형일까요?\n지금 3분 안에 진단해보세요 ↓`;
+  const shareText = `저는 ${typeName}래요 😊\n\n당신은 어떤 유형일까요?\n지금 5분 안에 진단해보세요`;
 
   const handleCopy = async () => {
     try {
@@ -53,7 +53,7 @@ export default function ShareButtons({ typeKey, typeName }: Props) {
         </a>
       </div>
       <p className="text-xs text-[var(--ink-soft)] mt-2">
-        친구가 클릭하면 {typeName} 결과 이미지가 카톡 미리보기로 뜹니다
+        {typeName} 결과 페이지가 공유돼 친구와 함께 확인할 수 있어요
       </p>
     </div>
   );
