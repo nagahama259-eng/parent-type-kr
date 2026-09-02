@@ -40,9 +40,9 @@ export default async function OGImage({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: "#F7F3EB",
+            background: "#FFFDF8",
             fontSize: 60,
-            color: "#2A2620",
+            color: "#272326",
           }}
         >
           부모 성향 테스트
@@ -98,7 +98,7 @@ export default async function OGImage({
           <span
             style={{
               fontSize: 24,
-              color: "#5C554B",
+              color: "rgba(39,35,38,0.65)",
               letterSpacing: 6,
               fontWeight: 400,
             }}
@@ -119,7 +119,7 @@ export default async function OGImage({
           <div
             style={{
               fontSize: 44,
-              color: "#5C554B",
+              color: "rgba(39,35,38,0.65)",
               marginBottom: 20,
               fontWeight: 400,
               display: "flex",
@@ -143,7 +143,7 @@ export default async function OGImage({
           <div
             style={{
               fontSize: 42,
-              color: "#2A2620",
+              color: "#272326",
               lineHeight: 1.4,
               fontWeight: 400,
               display: "flex",
@@ -159,7 +159,7 @@ export default async function OGImage({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-end",
-            color: "#5C554B",
+            color: "rgba(39,35,38,0.65)",
             fontSize: 22,
           }}
         >

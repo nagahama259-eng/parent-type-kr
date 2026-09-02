@@ -44,7 +44,7 @@ export default function TopShareCTA({ typeKey, typeName, color }: Props) {
   return (
     <button
       onClick={handleShare}
-      className="w-full py-4 md:py-5 text-white font-medium text-base md:text-lg hover:opacity-90 transition-opacity"
+      className="sticker w-full py-4 md:py-5 rounded-2xl text-[var(--ink)] font-bold text-base md:text-lg hover:brightness-95 transition-all"
       style={{ backgroundColor: color }}
     >
       {copied ? "링크가 복사되었어요 ✓" : "친구에게 결과 공유하기 →"}

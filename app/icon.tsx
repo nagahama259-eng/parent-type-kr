@@ -10,7 +10,7 @@ export default function Icon() {
         style={{
           width: "100%",
           height: "100%",
-          background: "#F7F3EB",
+          background: "#FFFDF8",
           display: "flex",
           flexDirection: "column",
         }}
@@ -20,8 +20,8 @@ export default function Icon() {
           <div
             style={{
               flex: 1,
-              borderRight: "1px solid #E4DDD0",
-              borderBottom: "1px solid #E4DDD0",
+              borderRight: "2px solid #272326",
+              borderBottom: "2px solid #272326",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -32,14 +32,14 @@ export default function Icon() {
                 width: 7,
                 height: 7,
                 borderRadius: "50%",
-                background: "#E8927C",
+                background: "#FF9EDF",
               }}
             />
           </div>
           <div
             style={{
               flex: 1,
-              borderBottom: "1px solid #E4DDD0",
+              borderBottom: "2px solid #272326",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -50,7 +50,7 @@ export default function Icon() {
                 width: 7,
                 height: 7,
                 borderRadius: "50%",
-                background: "#5B7A94",
+                background: "#91DDF7",
               }}
             />
           </div>
@@ -60,7 +60,7 @@ export default function Icon() {
           <div
             style={{
               flex: 1,
-              borderRight: "1px solid #E4DDD0",
+              borderRight: "2px solid #272326",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -71,7 +71,7 @@ export default function Icon() {
                 width: 7,
                 height: 7,
                 borderRadius: "50%",
-                background: "#8FA678",
+                background: "#CDB7FF",
               }}
             />
           </div>
@@ -88,7 +88,7 @@ export default function Icon() {
                 width: 7,
                 height: 7,
                 borderRadius: "50%",
-                background: "#9E8AA0",
+                background: "#A7F0D1",
               }}
             />
           </div>

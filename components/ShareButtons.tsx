@@ -33,13 +33,13 @@ export default function ShareButtons({ typeKey, typeName }: Props) {
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-xs tracking-[0.3em] uppercase text-[var(--ink-soft)]">
+      <p className="text-xs font-bold tracking-widest uppercase text-[var(--ink-soft)]">
         Share
       </p>
       <div className="flex flex-wrap gap-3">
         <button
           onClick={handleCopy}
-          className="px-5 py-3 border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-elevated)] transition-colors text-sm"
+          className="sticker px-5 py-3 rounded-xl bg-white text-[var(--ink)] font-bold hover:bg-[var(--accent-soft)] transition-colors text-sm"
         >
           {copied ? "복사되었어요 ✓" : "링크 복사"}
         </button>
@@ -47,7 +47,7 @@ export default function ShareButtons({ typeKey, typeName }: Props) {
           href={twitterUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="px-5 py-3 border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-elevated)] transition-colors text-sm"
+          className="sticker px-5 py-3 rounded-xl bg-white text-[var(--ink)] font-bold hover:bg-[var(--accent-soft)] transition-colors text-sm"
         >
           트위터로 공유
         </a>

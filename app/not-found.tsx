@@ -4,11 +4,11 @@ export default function NotFound() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-5 md:px-6 py-16">
       <div className="max-w-lg w-full text-center">
-        <p className="text-xs tracking-[0.3em] uppercase text-[var(--ink-soft)] mb-8">
+        <p className="text-xs font-bold tracking-widest uppercase text-[var(--ink-soft)] mb-8">
           404 · Not Found
         </p>
 
-        <h1 className="serif text-4xl md:text-5xl leading-tight tracking-tight mb-6">
+        <h1 className="hand text-4xl md:text-5xl leading-tight font-bold mb-6">
           이 페이지는
           <br />
           아직 없어요
@@ -22,7 +22,7 @@ export default function NotFound() {
 
         <Link
           href="/"
-          className="inline-block bg-[var(--ink)] text-[var(--bg-elevated)] px-10 py-4 text-base md:text-lg tracking-wide hover:bg-[var(--accent)] transition-colors"
+          className="sticker inline-block bg-[var(--accent)] text-white px-10 py-4 rounded-2xl text-base md:text-lg font-bold hover:brightness-105 transition-all"
         >
           테스트 시작하기 →
         </Link>

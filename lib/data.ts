@@ -38,6 +38,7 @@ export interface Product {
 
 export interface TypeContent {
   key: TypeKey;
+  image: string; // 결과 카드 일러스트 경로 (/public/cards)
   family: Family;
   name_kr: string;
   tagline: string;
@@ -62,10 +63,10 @@ export interface Reference {
 
 // 4개 계열별 대표 색
 export const FAMILY_COLORS: Record<Family, string> = {
-  nurturer: "#E8927C",  // 코랄 (감성+개입)
-  supporter: "#8FA678", // 세이지 (감성+자율)
-  planner: "#5B7A94",   // 블루 (이성+개입)
-  observer: "#9E8AA0",  // 모브 (이성+자율)
+  nurturer: "#FF9EDF",  // 핑크 (감성+개입)
+  supporter: "#CDB7FF", // 라벤더 (감성+자율)
+  planner: "#91DDF7",   // 스카이블루 (이성+개입)
+  observer: "#A7F0D1",  // 민트 (이성+자율)
 };
 
 export const QUESTIONS: Question[] = [
@@ -348,10 +349,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   // === nurturer 계열 (감성+개입) - 코랄 ===
   nurturer_guardian: {
     key: "nurturer_guardian",
+    image: "/cards/nurturer_guardian.jpg",
     family: "nurturer",
     name_kr: "든든한 수호자",
     tagline: "언제나 같은 자리에서 아이를 지켜주는 부모",
-    color: "#E8927C",
+    color: "#FF9EDF",
     coord: { a: 1, b: 1, c: 1, d: -1 },
     summary: "아이가 세상을 안전하게 탐색할 수 있도록 든든한 울타리가 되어주는 부모입니다. 하루하루 일관된 규칙과 따뜻한 말투로 아이에게 예측 가능한 안정감을 심어줍니다. 큰 변화보다는 익숙한 리듬 속에서 아이가 성장의 뿌리를 단단히 내리도록 돕습니다.",
     strengths: ["아이에게 안정적인 애착의 기반을 만들어줍니다.", "일관된 태도로 신뢰의 관계를 형성합니다.", "위기의 순간에도 흔들리지 않고 아이를 지켜냅니다."],
@@ -366,10 +368,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   nurturer_pioneer: {
     key: "nurturer_pioneer",
+    image: "/cards/nurturer_pioneer.jpg",
     family: "nurturer",
     name_kr: "열정의 개척자",
     tagline: "아이와 함께 새로운 세상을 여는 부모",
-    color: "#E8927C",
+    color: "#FF9EDF",
     coord: { a: 1, b: 1, c: 1, d: 1 },
     summary: "아이가 새로운 세상을 열정적으로 탐험하도록 곁에서 이끄는 부모입니다. 따뜻한 격려와 명확한 원칙 속에서 아이가 두려움 없이 도전할 수 있도록 힘을 실어줍니다. 매일을 새로운 배움의 기회로 만들며 아이의 세계를 함께 넓혀갑니다.",
     strengths: ["아이의 도전 정신을 자연스럽게 자극합니다.", "새로운 경험에서도 정서적 지지를 제공합니다.", "아이가 실패를 성장의 발판으로 받아들이게 돕습니다."],
@@ -384,10 +387,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   nurturer_helper: {
     key: "nurturer_helper",
+    image: "/cards/nurturer_helper.jpg",
     family: "nurturer",
     name_kr: "따뜻한 조력자",
     tagline: "아이의 곁에서 조용히 힘이 되어주는 부모",
-    color: "#E8927C",
+    color: "#FF9EDF",
     coord: { a: 1, b: 1, c: -1, d: -1 },
     summary: "아이의 상황과 감정을 세심히 읽으며 유연하게 손을 내미는 부모입니다. 규칙보다 관계를 우선하며 아이의 오늘 컨디션에 맞춘 도움을 자연스럽게 건넵니다. 안정된 애정 속에서 아이가 편안하게 자신의 세계를 꾸려가도록 지원합니다.",
     strengths: ["아이의 감정을 세심하게 읽어냅니다.", "상황에 맞춰 유연하게 대처합니다.", "아이가 편안한 관계 속에서 자기다움을 드러낼 수 있게 합니다."],
@@ -402,10 +406,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   nurturer_companion: {
     key: "nurturer_companion",
+    image: "/cards/nurturer_companion.jpg",
     family: "nurturer",
     name_kr: "유쾌한 동반자",
     tagline: "아이와 매일을 놀이처럼 함께하는 부모",
-    color: "#E8927C",
+    color: "#FF9EDF",
     coord: { a: 1, b: 1, c: -1, d: 1 },
     summary: "아이와 매 순간을 즐거운 모험으로 만들며 함께 뛰어노는 부모입니다. 융통성 있게 상황을 즐기고 아이의 호기심에 반응하며 새로운 재미를 발견합니다. 일상 속 작은 사건마다 웃음과 감정을 나누며 아이의 유쾌한 성장을 응원합니다.",
     strengths: ["아이의 호기심을 활짝 자극합니다.", "함께하는 시간을 즐거움으로 채웁니다.", "실패조차 이야기로 만들어 함께 웃습니다."],
@@ -421,10 +426,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   // === supporter 계열 (감성+자율) - 세이지 ===
   supporter_cheer: {
     key: "supporter_cheer",
+    image: "/cards/supporter_cheer.jpg",
     family: "supporter",
     name_kr: "다정한 응원자",
     tagline: "아이의 뒤에서 마음으로 응원하는 부모",
-    color: "#8FA678",
+    color: "#CDB7FF",
     coord: { a: 1, b: -1, c: 1, d: -1 },
     summary: "아이가 자신의 속도와 방식으로 성장하도록 조용히 응원하는 부모입니다. 뚜렷한 원칙 속에서 아이의 선택을 존중하고 스스로 방향을 찾도록 여백을 줍니다. 겉으로 드러나진 않지만 언제나 든든한 지지자로 곁을 지킵니다.",
     strengths: ["아이의 자기결정력을 자연스럽게 키워줍니다.", "감정 지지를 통해 아이의 자존감을 세워줍니다.", "결과보다 과정을 인정해주는 자세를 갖고 있습니다."],
@@ -439,10 +445,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   supporter_coach: {
     key: "supporter_coach",
+    image: "/cards/supporter_coach.jpg",
     family: "supporter",
     name_kr: "응원하는 코치",
     tagline: "아이의 잠재력을 믿고 이끌어주는 부모",
-    color: "#8FA678",
+    color: "#CDB7FF",
     coord: { a: 1, b: -1, c: 1, d: 1 },
     summary: "아이의 성장을 향해 원칙 있게 격려하고 함께 도전하는 부모입니다. 아이가 스스로의 힘으로 문제를 풀어나가도록 길을 열어주고 필요할 때만 코칭합니다. 따뜻함과 명확함 속에서 아이의 잠재력을 최대치로 끌어냅니다.",
     strengths: ["아이의 잠재력을 발견하고 발전시킵니다.", "명확한 목표와 정서 지지를 함께 제공합니다.", "실패를 재도전의 자원으로 전환합니다."],
@@ -457,10 +464,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   supporter_friend: {
     key: "supporter_friend",
+    image: "/cards/supporter_friend.jpg",
     family: "supporter",
     name_kr: "편안한 벗",
     tagline: "아이의 세상 속 편안한 친구가 되어주는 부모",
-    color: "#8FA678",
+    color: "#CDB7FF",
     coord: { a: 1, b: -1, c: -1, d: -1 },
     summary: "아이와 눈높이를 맞추며 편안한 친구처럼 지내는 부모입니다. 규칙보다 관계를 먼저 두며, 아이가 자연스럽게 마음을 열도록 유연한 태도를 취합니다. 서로의 감정과 이야기를 공유하며 아이의 세계에 조용히 스며듭니다.",
     strengths: ["아이가 부모를 신뢰하고 대화의 문을 자주 엽니다.", "감정 공유의 폭이 넓어 정서적 유대가 깊습니다.", "아이의 개성을 있는 그대로 존중합니다."],
@@ -475,10 +483,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   supporter_artist: {
     key: "supporter_artist",
+    image: "/cards/supporter_artist.jpg",
     family: "supporter",
     name_kr: "자유로운 예술가",
     tagline: "아이의 상상과 개성을 마음껏 응원하는 부모",
-    color: "#8FA678",
+    color: "#CDB7FF",
     coord: { a: 1, b: -1, c: -1, d: 1 },
     summary: "아이가 자유롭게 상상하고 표현하도록 열린 마음으로 함께하는 부모입니다. 정해진 정답보다 아이의 시선을 존중하며 새로운 시도를 지지합니다. 창의력과 감성을 존중하며 아이가 자신만의 세계를 색칠하도록 이끕니다.",
     strengths: ["아이의 창의성과 표현력을 최대로 이끌어냅니다.", "개성을 존중하고 다양한 시도를 지지합니다.", "실패도 실험의 일부로 받아들이도록 돕습니다."],
@@ -494,10 +503,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   // === planner 계열 (이성+개입) - 블루 ===
   planner_architect: {
     key: "planner_architect",
+    image: "/cards/planner_architect.jpg",
     family: "planner",
     name_kr: "든든한 건축가",
     tagline: "아이의 하루를 정교하게 설계하는 부모",
-    color: "#5B7A94",
+    color: "#91DDF7",
     coord: { a: -1, b: 1, c: 1, d: -1 },
     summary: "아이의 성장을 체계적으로 설계하고 안정적으로 이끄는 부모입니다. 원칙과 계획 아래에서 아이가 예측 가능한 리듬으로 안정감을 느끼도록 돕습니다. 하루의 구조를 통해 아이가 스스로 시간을 다루는 힘을 자연스럽게 배웁니다.",
     strengths: ["구체적인 계획과 실행력이 뛰어납니다.", "아이의 성장 단계를 체계적으로 지원합니다.", "예측 가능한 환경으로 아이에게 안정감을 줍니다."],
@@ -512,10 +522,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   planner_conductor: {
     key: "planner_conductor",
+    image: "/cards/planner_conductor.jpg",
     family: "planner",
     name_kr: "지혜로운 지휘자",
     tagline: "아이의 성장 방향을 명확히 이끌어주는 부모",
-    color: "#5B7A94",
+    color: "#91DDF7",
     coord: { a: -1, b: 1, c: 1, d: 1 },
     summary: "아이의 성장을 명확한 방향으로 이끌며 함께 새로운 도전을 만들어가는 부모입니다. 원칙 위에서 조화롭게 계획을 세우고 아이가 도전을 두려워하지 않도록 이끕니다. 논리와 확신 속에서 아이가 자신의 길을 향해 걷도록 지혜롭게 지휘합니다.",
     strengths: ["명확한 방향성과 도전 의식을 동시에 심어줍니다.", "체계적인 학습 지원 능력이 뛰어납니다.", "아이가 결단력 있게 행동하도록 이끕니다."],
@@ -530,10 +541,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   planner_navigator: {
     key: "planner_navigator",
+    image: "/cards/planner_navigator.jpg",
     family: "planner",
     name_kr: "침착한 안내자",
     tagline: "아이의 상황에 맞게 유연히 길을 안내하는 부모",
-    color: "#5B7A94",
+    color: "#91DDF7",
     coord: { a: -1, b: 1, c: -1, d: -1 },
     summary: "아이가 마주하는 상황을 침착하게 분석하고 유연히 길을 안내하는 부모입니다. 급변하는 순간에도 감정 대신 판단으로 안정된 방향을 제시합니다. 아이가 스스로 판단력을 기를 수 있도록 부드럽게 이끄는 조율자입니다.",
     strengths: ["문제 해결 능력이 뛰어납니다.", "상황을 유연하고 논리적으로 대처합니다.", "아이의 판단력을 자연스럽게 자극합니다."],
@@ -548,10 +560,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   planner_advisor: {
     key: "planner_advisor",
+    image: "/cards/planner_advisor.jpg",
     family: "planner",
     name_kr: "실용적 조언자",
     tagline: "아이의 성장에 실질적 조언을 건네는 부모",
-    color: "#5B7A94",
+    color: "#91DDF7",
     coord: { a: -1, b: 1, c: -1, d: 1 },
     summary: "아이의 상황에 맞는 실용적 조언과 새로운 시도를 함께 이끄는 부모입니다. 융통성 있게 접근하며 실제 도움이 될 방법을 논리적으로 제시합니다. 아이가 세상에서 부딪히는 문제를 스스로 해결해 나갈 힘을 실질적으로 키워줍니다.",
     strengths: ["실용적이고 현실적인 조언이 뛰어납니다.", "도전을 지지하고 새로운 아이디어를 함께 개발합니다.", "아이의 문제 해결 능력을 실질적으로 강화합니다."],
@@ -567,10 +580,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   // === observer 계열 (이성+자율) - 모브 ===
   observer_lighthouse: {
     key: "observer_lighthouse",
+    image: "/cards/observer_lighthouse.jpg",
     family: "observer",
     name_kr: "신중한 등대",
     tagline: "멀리서도 아이의 길을 비추는 부모",
-    color: "#9E8AA0",
+    color: "#A7F0D1",
     coord: { a: -1, b: -1, c: 1, d: -1 },
     summary: "아이가 스스로 길을 걷도록 신중하게 지켜보며 방향만 비추는 부모입니다. 원칙 안에서 아이가 자기 판단을 신뢰하도록 조용히 등불을 밝힙니다. 급하지 않지만 언제나 흔들림 없는 존재로 아이의 항해를 응원합니다.",
     strengths: ["아이의 자립을 신중히 지원합니다.", "일관된 원칙으로 방향을 유지합니다.", "감정보다 상황을 이해하는 힘이 있습니다."],
@@ -585,10 +599,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   observer_mentor: {
     key: "observer_mentor",
+    image: "/cards/observer_mentor.jpg",
     family: "observer",
     name_kr: "냉철한 멘토",
     tagline: "냉철한 시선으로 아이의 성장을 이끄는 부모",
-    color: "#9E8AA0",
+    color: "#A7F0D1",
     coord: { a: -1, b: -1, c: 1, d: 1 },
     summary: "감정보다 사고와 판단을 우선하며 아이의 성장을 냉철하게 이끄는 부모입니다. 새로운 도전과 원칙 아래에서 아이가 스스로 사고력을 키우도록 돕습니다. 다정함보다 성장의 방향성을 우선시하는 지혜로운 조력자입니다.",
     strengths: ["논리적 사고와 결단력이 뛰어납니다.", "아이의 자기주도적 성장을 지지합니다.", "명확한 원칙과 도전 정신을 함께 심어줍니다."],
@@ -603,10 +618,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   observer_watcher: {
     key: "observer_watcher",
+    image: "/cards/observer_watcher.jpg",
     family: "observer",
     name_kr: "조용한 관찰자",
     tagline: "아이의 속도로 조용히 함께 걷는 부모",
-    color: "#9E8AA0",
+    color: "#A7F0D1",
     coord: { a: -1, b: -1, c: -1, d: -1 },
     summary: "아이의 성장 속도를 조용히 존중하며 함께 걷는 부모입니다. 관찰과 이해를 우선하며 아이가 자신만의 리듬을 찾도록 여유를 줍니다. 개입은 최소지만 아이의 감정과 행동을 세심히 살펴 신뢰를 쌓아갑니다.",
     strengths: ["아이의 개별 리듬을 존중합니다.", "관찰력을 통해 필요한 순간을 놓치지 않습니다.", "아이의 자율성을 자연스럽게 지원합니다."],
@@ -621,10 +637,11 @@ export const TYPES: Record<TypeKey, TypeContent> = {
   },
   observer_explorer: {
     key: "observer_explorer",
+    image: "/cards/observer_explorer.jpg",
     family: "observer",
     name_kr: "유연한 탐험가",
     tagline: "아이와 새로운 시선으로 세상을 탐험하는 부모",
-    color: "#9E8AA0",
+    color: "#A7F0D1",
     coord: { a: -1, b: -1, c: -1, d: 1 },
     summary: "아이의 자율성을 존중하며 함께 새로운 세계를 탐험하는 부모입니다. 정해진 규칙보다 아이의 관심사에 따라 자유롭게 배움을 확장합니다. 논리적이고 유연한 사고 속에서 아이가 세상을 열린 시선으로 바라보게 이끕니다.",
     strengths: ["열린 사고와 탐구심을 자극합니다.", "아이의 개별 관심사를 지원합니다.", "새로운 도전에 유연하게 반응합니다."],

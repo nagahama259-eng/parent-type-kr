@@ -3,31 +3,40 @@
 @tailwind utilities;
 
 :root {
-  /* 팔레트: 따뜻한 뉴트럴 + 머스터드 액센트 */
-  --bg: #F7F3EB;
-  --bg-elevated: #FBF9F4;
-  --ink: #2A2620;
-  --ink-soft: #5C554B;
-  --line: #E4DDD0;
-  --accent: #C89934;         /* 머스터드 (시그니처) */
-  --accent-soft: #EFDFAF;
-
-  /* 유형 색 (사분면) */
-  --type-nurturer: #E8927C;  /* 감성+개입 코랄 */
-  --type-planner:  #5B7A94;  /* 이성+개입 블루 */
-  --type-freeflow: #8FA678;  /* 감성+자율 세이지 */
-  --type-observer: #9E8AA0;  /* 이성+자율 모브 */
+  /* 팔레트: 웜 파스텔 Y2K (결과 카드 화풍과 통일) */
+  --bg: #FFFDF8;           /* 아이보리 */
+  --bg-elevated: #FFFFFF;
+  --ink: #272326;          /* 먹색 */
+  --ink-soft: rgba(39, 35, 38, 0.65);
+  --ink-faint: rgba(39, 35, 38, 0.45);
+  --line: rgba(39, 35, 38, 0.14);
+  --accent: #FF8273;       /* 코랄 (시그니처 CTA) */
+  --accent-soft: #FFDCD6;
+  --pink: #FF9EDF;
+  --mint: #A7F0D1;
+  --butter: #FFE36E;
+  --lavender: #CDB7FF;
+  --sky: #91DDF7;
 }
 
 html, body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
-  font-feature-settings: 'ss01', 'ss02';
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.serif {
-  font-family: 'Noto Serif KR', 'Nanum Myeongjo', serif;
+.hand {
+  font-family: 'Gaegu', 'Noto Sans KR', sans-serif;
+}
+
+/* 스티커형 카드/버튼 공용 스타일 */
+.sticker {
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 rgba(39, 35, 38, 0.12);
+}
+
+.sticker-flat {
+  border: 3px solid var(--ink);
 }
 
 /* 강조 스크롤 애니메이션은 절제 */

@@ -15,6 +15,7 @@ import { isValidTypeKey } from "@/lib/scoring";
 import QuadrantMap from "@/components/QuadrantMap";
 import ShareButtons from "@/components/ShareButtons";
 import TopShareCTA from "@/components/TopShareCTA";
+import ResultCardArt from "@/components/ResultCardArt";
 
 // SEO를 위한 정적 생성
 export function generateStaticParams() {
@@ -77,19 +78,25 @@ export default async function ResultPage({
     <main className="min-h-screen px-5 md:px-6 py-10 md:py-16">
       <div className="max-w-3xl mx-auto">
         {/* 결과 헤더 */}
-        <p className="text-xs tracking-[0.3em] uppercase text-[var(--ink-soft)] mb-6">
+        <p className="text-xs font-bold tracking-widest uppercase text-[var(--ink-soft)] mb-6">
           Your Result
         </p>
+
+        {/* 결과 카드 일러스트 (리본에 유형명, 캡슐에 키워드) */}
+        <div className="mb-8">
+          <ResultCardArt type={t} />
+        </div>
+
         <h1
-          className="serif text-4xl md:text-6xl leading-[1.1] tracking-tight mb-4"
+          className="hand text-4xl md:text-6xl leading-[1.15] font-bold mb-4 text-center"
           style={{ color: t.color }}
         >
           {t.name_kr}
         </h1>
-        <p className="text-lg md:text-xl text-[var(--ink)] mb-4 max-w-2xl leading-relaxed">
+        <p className="text-lg md:text-xl text-[var(--ink)] mb-4 max-w-2xl mx-auto text-center leading-relaxed">
           {t.tagline}
         </p>
-        <p className="text-xs text-[var(--ink-soft)] mb-16 tracking-wider">
+        <p className="text-xs text-[var(--ink-soft)] mb-16 text-center">
           · {THEORETICAL_BASIS}
         </p>
 
@@ -106,11 +113,7 @@ export default async function ResultPage({
 
         {/* 상단 공유 CTA */}
         <div className="mb-16 md:mb-20">
-          <TopShareCTA
-            typeKey={type}
-            typeName={t.name_kr}
-            color={t.color}
-          />
+          <TopShareCTA typeKey={type} typeName={t.name_kr} color={t.color} />
           <p className="text-xs text-[var(--ink-soft)] text-center mt-3">
             친구가 어떤 유형인지 궁금하지 않으세요?
           </p>
@@ -127,11 +130,14 @@ export default async function ResultPage({
         {/* 강점 */}
         <section className="mb-12 md:mb-16">
           <SectionLabel>강점</SectionLabel>
-          <ul className="space-y-4">
+          <ul className="space-y-3">
             {t.strengths.map((s, i) => (
-              <li key={i} className="flex gap-4 items-start">
+              <li
+                key={i}
+                className="sticker flex gap-4 items-start bg-white rounded-2xl p-4"
+              >
                 <span
-                  className="serif text-xl md:text-2xl leading-none mt-1 flex-shrink-0"
+                  className="hand text-xl md:text-2xl leading-none mt-0.5 flex-shrink-0 font-bold"
                   style={{ color: t.color }}
                 >
                   0{i + 1}
@@ -147,9 +153,12 @@ export default async function ResultPage({
         {/* 유의점 */}
         <section className="mb-12 md:mb-16">
           <SectionLabel>유의점</SectionLabel>
-          <ul className="space-y-4">
+          <ul className="space-y-3">
             {t.cautions.map((c, i) => (
-              <li key={i} className="text-[var(--ink-soft)] leading-relaxed">
+              <li
+                key={i}
+                className="sticker bg-[var(--butter)] rounded-2xl p-4 text-[var(--ink)] leading-relaxed"
+              >
                 {c}
               </li>
             ))}
@@ -158,18 +167,18 @@ export default async function ResultPage({
 
         {/* 아이 성장 + 논문 근거 */}
         <section
-          className="mb-12 md:mb-16 bg-[var(--bg-elevated)] p-6 md:p-8 border-l-4"
-          style={{ borderColor: t.color }}
+          className="sticker mb-12 md:mb-16 rounded-2xl p-6 md:p-8"
+          style={{ background: t.color }}
         >
           <SectionLabel>우리 아이는 이렇게 자라요</SectionLabel>
           <p className="text-base md:text-lg leading-relaxed text-[var(--ink)] mb-6">
             {t.child_growth}
           </p>
-          <div className="mt-6 pt-6 border-t border-[var(--line)]">
-            <p className="text-xs tracking-wider text-[var(--ink-soft)] mb-3">
+          <div className="mt-6 pt-6 border-t-2 border-[var(--ink)]/15">
+            <p className="text-xs font-bold text-[var(--ink-soft)] mb-3">
               연구 근거
             </p>
-            <p className="text-sm leading-relaxed text-[var(--ink-soft)] italic">
+            <p className="text-sm leading-relaxed text-[rgba(39,35,38,0.8)] italic">
               {t.research_basis}
             </p>
           </div>
@@ -178,11 +187,14 @@ export default async function ResultPage({
         {/* 케어 팁 */}
         <section className="mb-12 md:mb-16">
           <SectionLabel>오늘 해볼 만한 케어</SectionLabel>
-          <ol className="space-y-6">
+          <ol className="space-y-3">
             {t.care_tips.map((tip, i) => (
-              <li key={i} className="flex gap-4 md:gap-6 items-start">
+              <li
+                key={i}
+                className="sticker flex gap-4 md:gap-5 items-start bg-white rounded-2xl p-4 md:p-5"
+              >
                 <span
-                  className="serif text-3xl md:text-4xl leading-none opacity-40 flex-shrink-0"
+                  className="hand text-3xl md:text-4xl leading-none flex-shrink-0 font-bold opacity-60"
                   style={{ color: t.color }}
                 >
                   {i + 1}
@@ -204,22 +216,21 @@ export default async function ResultPage({
 
           {/* 찰떡궁합 */}
           <div
-            className="mb-4 border-l-4 bg-[var(--bg-elevated)] p-6"
-            style={{ borderColor: compatible.color }}
+            className="sticker mb-4 rounded-2xl p-6"
+            style={{ background: compatible.color }}
           >
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-xs tracking-wider text-[var(--ink-soft)]">
-                💫 찰떡궁합
+              <span className="sticker text-xs font-bold bg-white px-2.5 py-1 rounded-full text-[var(--ink)]">
+                찰떡궁합
               </span>
               <Link
                 href={`/result/${compatible.key}`}
-                className="text-base md:text-lg font-medium hover:underline"
-                style={{ color: compatible.color }}
+                className="hand text-lg md:text-xl font-bold hover:underline text-[var(--ink)]"
               >
                 {compatible.name_kr}
               </Link>
             </div>
-            <p className="text-sm text-[var(--ink-soft)] mb-3">
+            <p className="text-sm text-[rgba(39,35,38,0.75)] mb-3">
               {compatible.tagline}
             </p>
             <p className="text-sm leading-relaxed text-[var(--ink)]">
@@ -227,15 +238,15 @@ export default async function ResultPage({
             </p>
           </div>
 
-          {/* 안맞음 */}
-          <div className="border-l-4 border-[var(--line)] bg-[var(--bg-elevated)] p-6 opacity-90">
+          {/* 노력이 필요한 관계 */}
+          <div className="sticker bg-white rounded-2xl p-6">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-xs tracking-wider text-[var(--ink-soft)]">
-                ⚡ 서로 노력이 필요한 관계
+              <span className="sticker text-xs font-bold bg-[var(--bg)] px-2.5 py-1 rounded-full text-[var(--ink-soft)]">
+                서로 노력이 필요한 관계
               </span>
               <Link
                 href={`/result/${clash.key}`}
-                className="text-base md:text-lg font-medium hover:underline text-[var(--ink)]"
+                className="hand text-lg md:text-xl font-bold hover:underline text-[var(--ink)]"
               >
                 {clash.name_kr}
               </Link>
@@ -259,10 +270,10 @@ export default async function ResultPage({
             {products.map((p, i) => (
               <div
                 key={i}
-                className="border border-[var(--line)] bg-[var(--bg-elevated)] flex flex-col overflow-hidden"
+                className="sticker rounded-2xl bg-white flex flex-col overflow-hidden"
               >
                 {/* 상품 이미지 영역 */}
-                <div className="aspect-square relative overflow-hidden">
+                <div className="aspect-square relative overflow-hidden border-b-[3px] border-[var(--ink)]">
                   {p.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -274,7 +285,7 @@ export default async function ResultPage({
                   ) : (
                     <div
                       className="w-full h-full flex items-center justify-center text-7xl"
-                      style={{ backgroundColor: t.color + "25" }}
+                      style={{ backgroundColor: t.color + "55" }}
                     >
                       <span className="opacity-70">
                         {CATEGORY_ICONS[p.category] || "🎁"}
@@ -285,10 +296,10 @@ export default async function ResultPage({
 
                 {/* 콘텐츠 영역 */}
                 <div className="p-5 flex flex-col flex-1">
-                  <p className="text-xs text-[var(--ink-soft)] tracking-wider mb-3">
+                  <p className="text-xs font-bold text-[var(--ink-soft)] mb-3">
                     {p.category}
                   </p>
-                  <p className="text-[var(--ink)] font-medium leading-snug mb-3">
+                  <p className="text-[var(--ink)] font-bold leading-snug mb-3">
                     {p.product_name_example}
                   </p>
                   <p className="text-sm text-[var(--ink-soft)] leading-relaxed mb-4 flex-1">
@@ -303,12 +314,12 @@ export default async function ResultPage({
                       href={p.coupang_link}
                       target="_blank"
                       rel="nofollow noopener noreferrer"
-                      className="inline-block text-center py-3 border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg-elevated)] transition-colors text-sm"
+                      className="sticker inline-block text-center py-3 rounded-xl bg-[var(--accent)] text-white hover:brightness-105 transition-all text-sm font-bold"
                     >
                       쿠팡에서 보기 →
                     </a>
                   ) : (
-                    <span className="inline-block text-center py-3 border border-[var(--line)] text-[var(--ink-soft)] text-sm">
+                    <span className="inline-block text-center py-3 rounded-xl border-2 border-dashed border-[var(--line)] text-[var(--ink-soft)] text-sm">
                       쿠팡 링크 준비 중
                     </span>
                   )}
@@ -322,7 +333,7 @@ export default async function ResultPage({
         </section>
 
         {/* 공유 */}
-        <section className="mb-16 pt-16 border-t border-[var(--line)]">
+        <section className="mb-16 pt-16 border-t-2 border-dashed border-[var(--line)]">
           <ShareButtons typeKey={type} typeName={t.name_kr} />
         </section>
 
@@ -342,13 +353,13 @@ export default async function ResultPage({
                   <Link
                     key={k}
                     href={`/result/${k}`}
-                    className="p-5 border border-[var(--line)] bg-[var(--bg-elevated)] hover:border-[var(--ink)] transition-colors flex flex-col"
+                    className="sticker p-5 rounded-2xl bg-white hover:brightness-95 transition-all flex flex-col"
                   >
                     <div
-                      className="w-3 h-3 rounded-full mb-3"
+                      className="sticker w-3.5 h-3.5 rounded-full mb-3"
                       style={{ backgroundColor: other.color }}
                     />
-                    <p className="text-[var(--ink)] font-medium mb-2">
+                    <p className="text-[var(--ink)] font-bold mb-2">
                       {other.name_kr}
                     </p>
                     <p className="text-xs text-[var(--ink-soft)] leading-relaxed">
@@ -362,19 +373,19 @@ export default async function ResultPage({
 
           <Link
             href="/"
-            className="inline-block text-center bg-[var(--ink)] text-[var(--bg-elevated)] px-8 py-4 hover:bg-[var(--accent)] transition-colors"
+            className="sticker inline-block text-center bg-[var(--accent)] text-white px-8 py-4 rounded-2xl font-bold hover:brightness-105 transition-all"
           >
             다시 테스트하기
           </Link>
         </section>
 
         {/* 신중한 톤 문구 + 참고문헌 */}
-        <section className="mt-20 pt-8 border-t border-[var(--line)]">
+        <section className="mt-20 pt-8 border-t-2 border-dashed border-[var(--line)]">
           <p className="text-xs text-[var(--ink-soft)] leading-relaxed mb-6">
             {DISCLAIMER}
           </p>
           <details className="text-xs text-[var(--ink-soft)]">
-            <summary className="cursor-pointer hover:text-[var(--ink)] tracking-wider">
+            <summary className="cursor-pointer hover:text-[var(--ink)] font-bold">
               참고문헌 ({REFERENCES.length})
             </summary>
             <ol className="mt-4 space-y-2 pl-4">
@@ -388,7 +399,7 @@ export default async function ResultPage({
         </section>
 
         {/* 서명 */}
-        <footer className="mt-16 pt-8 border-t border-[var(--line)] text-xs text-[var(--ink-soft)]">
+        <footer className="mt-16 pt-8 border-t-2 border-dashed border-[var(--line)] text-xs text-[var(--ink-soft)]">
           made by 259
         </footer>
       </div>
@@ -398,7 +409,7 @@ export default async function ResultPage({
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs tracking-[0.3em] uppercase text-[var(--ink-soft)] mb-6">
+    <p className="text-xs font-bold tracking-widest uppercase text-[var(--ink-soft)] mb-6">
       {children}
     </p>
   );

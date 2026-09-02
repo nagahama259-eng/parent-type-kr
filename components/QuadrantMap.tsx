@@ -38,18 +38,18 @@ export default function QuadrantMap({
   return (
     <div className="w-full max-w-md mx-auto">
       {/* 사분면 지도 */}
-      <div className="relative aspect-square bg-[var(--bg-elevated)] border border-[var(--line)]">
+      <div className="sticker relative aspect-square bg-white rounded-2xl">
         {/* 축 라벨 - 박스 안쪽 배치 */}
-        <span className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] text-[var(--ink-soft)] tracking-wider bg-[var(--bg-elevated)] px-1.5 z-10">
+        <span className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-bold text-[var(--ink-soft)] tracking-wider bg-white px-1.5 z-10">
           개입
         </span>
-        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-[var(--ink-soft)] tracking-wider bg-[var(--bg-elevated)] px-1.5 z-10">
+        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-bold text-[var(--ink-soft)] tracking-wider bg-white px-1.5 z-10">
           자율
         </span>
-        <span className="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] text-[var(--ink-soft)] tracking-wider bg-[var(--bg-elevated)] px-1.5 z-10">
+        <span className="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-bold text-[var(--ink-soft)] tracking-wider bg-white px-1.5 z-10">
           감성
         </span>
-        <span className="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] text-[var(--ink-soft)] tracking-wider bg-[var(--bg-elevated)] px-1.5 z-10">
+        <span className="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-bold text-[var(--ink-soft)] tracking-wider bg-white px-1.5 z-10">
           이성
         </span>
 
@@ -74,7 +74,7 @@ export default function QuadrantMap({
               }}
             >
               <div
-                className="w-2 h-2 rounded-full mx-auto mb-1"
+                className="sticker w-2.5 h-2.5 rounded-full mx-auto mb-1"
                 style={{ backgroundColor: FAMILY_COLORS[family] }}
               />
               <span className="text-[10px] text-[var(--ink-soft)] whitespace-nowrap">
@@ -110,7 +110,7 @@ export default function QuadrantMap({
           />
           {/* 실제 점 */}
           <div
-            className="w-6 h-6 rounded-full border-2 border-white shadow-md relative z-10"
+            className="w-6 h-6 rounded-full border-[3px] border-[var(--ink)] shadow-md relative z-10"
             style={{ backgroundColor: current.color }}
           />
           <span
@@ -128,7 +128,7 @@ export default function QuadrantMap({
       </div>
 
       {/* 축 A/B 백분율 */}
-      <div className="mt-10 flex justify-between text-xs text-[var(--ink-soft)] tracking-wider">
+      <div className="mt-10 flex justify-between text-xs font-bold text-[var(--ink-soft)] tracking-wider">
         <span>
           감성 {pctA}% · 이성 {100 - pctA}%
         </span>
@@ -170,7 +170,7 @@ function AxisBar({
   const isLeft = leftPct >= 50;
   return (
     <div>
-      <div className="flex justify-between text-xs text-[var(--ink-soft)] tracking-wider mb-2">
+      <div className="flex justify-between text-xs font-bold text-[var(--ink-soft)] tracking-wider mb-2">
         <span
           className={isLeft ? "font-medium" : ""}
           style={isLeft ? { color } : {}}
@@ -184,7 +184,7 @@ function AxisBar({
           {rightLabel} {100 - leftPct}%
         </span>
       </div>
-      <div className="relative h-1.5 bg-[var(--line)] rounded-full overflow-hidden">
+      <div className="relative h-2 bg-[var(--bg)] border-2 border-[var(--ink)]/15 rounded-full overflow-hidden">
         <div
           className="absolute inset-y-0 left-0"
           style={{ width: `${leftPct}%`, backgroundColor: color }}
